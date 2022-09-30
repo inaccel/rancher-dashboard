@@ -58,7 +58,8 @@ const TAB_WEIGHT_MAP = {
   volumeClaimTemplates: 89,
 };
 
-const GPU_KEY = 'nvidia.com/gpu';
+const INTEL_PAC_A10_KEY = 'intel/pac_a10';
+const INTEL_PAC_S10_DC_KEY = 'intel/pac_s10_dc';
 
 export default {
   name:       'CruWorkload',
@@ -345,7 +346,8 @@ export default {
         const {
           cpu: limitsCpu,
           memory: limitsMemory,
-          [GPU_KEY]: limitsGpu,
+          [INTEL_PAC_A10_KEY]: limitsIntelPacA10,
+          [INTEL_PAC_S10_DC_KEY]: limitsIntelPacS10Dc,
         } = limits;
         const { cpu: requestsCpu, memory: requestsMemory } = requests;
 
@@ -354,7 +356,8 @@ export default {
           limitsMemory,
           requestsCpu,
           requestsMemory,
-          limitsGpu,
+          limitsIntelPacA10,
+          limitsIntelPacS10Dc,
         };
       },
       set(neu) {
@@ -363,7 +366,8 @@ export default {
           limitsMemory,
           requestsCpu,
           requestsMemory,
-          limitsGpu,
+          limitsIntelPacA10,
+          limitsIntelPacS10Dc,
         } = neu;
 
         const out = {
@@ -372,9 +376,10 @@ export default {
             memory: requestsMemory,
           },
           limits: {
-            cpu:       limitsCpu,
-            memory:    limitsMemory,
-            [GPU_KEY]: limitsGpu,
+            cpu:                    limitsCpu,
+            memory:                 limitsMemory,
+            [INTEL_PAC_A10_KEY]:    limitsIntelPacA10,
+            [INTEL_PAC_S10_DC_KEY]: limitsIntelPacS10Dc,
           },
         };
 
@@ -648,19 +653,41 @@ export default {
 
       if (template.spec.containers && template.spec.containers[0]) {
         const containerResources = template.spec.containers[0].resources;
-        const nvidiaGpuLimit =
-          template.spec.containers[0].resources?.limits?.[GPU_KEY];
+        const intelPacA10Limit =
+          template.spec.containers[0].resources?.limits?.[INTEL_PAC_A10_KEY];
+        const intelPacS10DcLimit =
+          template.spec.containers[0].resources?.limits?.[INTEL_PAC_S10_DC_KEY];
 
         // Though not required, requests are also set to mirror the ember ui
-        if (nvidiaGpuLimit > 0) {
+        if (intelPacA10Limit > 0) {
           containerResources.requests = containerResources.requests || {};
-          containerResources.requests[GPU_KEY] = nvidiaGpuLimit;
+          containerResources.requests[INTEL_PAC_A10_KEY] = intelPacA10Limit;
+        }
+        if (intelPacS10DcLimit > 0) {
+          containerResources.requests = containerResources.requests || {};
+          containerResources.requests[INTEL_PAC_S10_DC_KEY] = intelPacS10DcLimit;
         }
 
-        if (!this.nvidiaIsValid(nvidiaGpuLimit)) {
+        if (!this.fpgaLimitIsValid(intelPacA10Limit)) {
           try {
-            delete containerResources.requests[GPU_KEY];
-            delete containerResources.limits[GPU_KEY];
+            delete containerResources.requests[INTEL_PAC_A10_KEY];
+            delete containerResources.limits[INTEL_PAC_A10_KEY];
+
+            if (Object.keys(containerResources.limits).length === 0) {
+              delete containerResources.limits;
+            }
+            if (Object.keys(containerResources.requests).length === 0) {
+              delete containerResources.requests;
+            }
+            if (Object.keys(containerResources).length === 0) {
+              delete template.spec.containers[0].resources;
+            }
+          } catch {}
+        }
+        if (!this.fpgaLimitIsValid(intelPacS10DcLimit)) {
+          try {
+            delete containerResources.requests[INTEL_PAC_S10_DC_KEY];
+            delete containerResources.limits[INTEL_PAC_S10_DC_KEY];
 
             if (Object.keys(containerResources.limits).length === 0) {
               delete containerResources.limits;
@@ -881,14 +908,14 @@ export default {
         delete this.podTemplateSpec.serviceAccountName;
       }
     },
-    nvidiaIsValid(nvidiaGpuLimit) {
-      if (!Number.isInteger(nvidiaGpuLimit)) {
+    fpgaLimitIsValid(fpgaLimit) {
+      if (!Number.isInteger(fpgaLimit)) {
         return false;
       }
-      if (nvidiaGpuLimit === undefined) {
+      if (fpgaLimit === undefined) {
         return false;
       }
-      if (nvidiaGpuLimit < 1) {
+      if (fpgaLimit < 1) {
         return false;
       } else {
         return true;

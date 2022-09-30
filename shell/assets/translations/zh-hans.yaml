@@ -197,7 +197,7 @@ suffix:
   milliCpus: milli CPU
   cores: 核心
   cpus: CPU
-  gpus: GPU
+  fpgas: FPGA
   ib: iB
   mib: MiB
   gb: GB
@@ -1776,12 +1776,13 @@ configmap:
 
 containerResourceLimit:
   cpuPlaceholder: 例如：1000
-  gpuPlaceholder: 例如：1
+  fpgaPlaceholder: 例如：1
   helpText: 配置容器可以使用的默认资源配额
   helpTextDetail: 容器可以使用的的默认资源配额
   label: 容器默认资源限制
   limitsCpu: CPU 限制
-  limitsGpu: NVIDIA GPU 限制/预留
+  limitsIntelPacA10: Intel PAC A10 限制/预留
+  limitsIntelPacS10Dc: Intel PAC S10 DC 限制/预留
   limitsMemory: 内存限制
   memPlaceholder: 例如：128
   requestsCpu: CPU 预留
