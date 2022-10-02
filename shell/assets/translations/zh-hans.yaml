@@ -1731,6 +1731,8 @@ clusterIndexPage:
     cores: CPU
     pods: Pod
     ram: 内存
+    intelPacA10: Intel PAC A10
+    intelPacS10Dc: Intel PAC S10 DC
     used: 已使用
     reserved: 已预留
   header: 集群仪表板
@@ -1739,6 +1741,8 @@ clusterIndexPage:
   sections:
     capacity:
       label: 容量
+    fpgaUsage:
+      label: FPGA 使用量
     events:
       label: 事件
       resource:
@@ -3220,6 +3224,8 @@ node:
         cpu: CPU
         memory: 内存
         pods: Pod
+        intelPacA10: Intel PAC A10
+        intelPacS10Dc: Intel PAC S10 DC
       diskPressure: 磁盘压力
       kubelet: Kubelet
       memoryPressure: 内存压力
@@ -4651,6 +4657,7 @@ tableHeaders:
   expires: 过期时间
   providers: 提供商
   cpu: CPU
+  fpga: FPGA
   date: 日期
   default: 默认
   destination: 目标

@@ -1749,6 +1749,8 @@ clusterIndexPage:
     cores: Cores
     pods: Pods
     ram: Memory
+    intelPacA10: Intel PAC A10
+    intelPacS10Dc: Intel PAC S10 DC
     used: Used
     reserved: Reserved
   header: Cluster Dashboard
@@ -1757,6 +1759,8 @@ clusterIndexPage:
   sections:
     capacity:
       label: Capacity
+    fpgaUsage:
+      label: FPGA Usage
     events:
       label: Events
       resource:
@@ -3265,6 +3269,8 @@ node:
         cpu: CPU
         memory: MEMORY
         pods: PODS
+        intelPacA10: Intel PAC A10
+        intelPacS10Dc: Intel PAC S10 DC
       diskPressure: Disk Pressure
       kubelet: kubelet
       memoryPressure: Memory Pressure
@@ -4703,6 +4709,7 @@ tableHeaders:
   expires: Expires
   providers: Providers
   cpu: CPU
+  fpga: FPGA
   date: Date
   default: Default
   destination: Target

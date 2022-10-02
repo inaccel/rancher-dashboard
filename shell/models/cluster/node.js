@@ -163,6 +163,76 @@ export default class ClusterNode extends SteveModel {
     return ((this.cpuUsage * 100) / this.cpuCapacity).toString();
   }
 
+  get intelPacA10Usage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_a10'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_a10'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelPacA10Capacity() {
+    return Number.parseInt(this.status.capacity['intel/pac_a10'] || '0');
+  }
+
+  get intelPacA10UsagePercentage() {
+    return ((this.intelPacA10Usage * 100) / this.intelPacA10Capacity).toString();
+  }
+
+  get intelPacS10DcUsage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelPacS10DcCapacity() {
+    return Number.parseInt(this.status.capacity['intel/pac_s10_dc'] || '0');
+  }
+
+  get intelPacS10DcUsagePercentage() {
+    return ((this.intelPacS10DcUsage * 100) / this.intelPacS10DcCapacity).toString();
+  }
+
+  get fpgaUsage() {
+    return this.intelPacA10Usage + this.intelPacS10DcUsage;
+  }
+
+  get fpgaCapacity() {
+    return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+  }
+
+  get fpgaUsagePercentage() {
+    return ((this.fpgaUsage * 100) / this.fpgaCapacity).toString();
+  }
+
   get ramUsage() {
     return parseSi(this.$rootGetters['cluster/byId'](METRIC.NODE, this.id)?.usage?.memory || '0');
   }
