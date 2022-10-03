@@ -148,7 +148,9 @@ export default {
     },
 
     pods() {
-      return this.$store.getters['cluster/all'](POD);
+      const allPods = this.$store.getters['cluster/all'](POD);
+
+      return allPods.filter(pod => pod.spec.nodeName);
     },
 
     mgmtNodes() {
