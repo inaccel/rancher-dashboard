@@ -433,6 +433,92 @@ export default {
       return createMemoryValues(this.memoryTotal, this.metricAggregations?.memory);
     },
 
+    intelPacA10Usage() {
+      return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_a10'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_a10'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((usage, limit) => usage + limit, 0.0);
+    },
+
+    intelPacA10Allocatable() {
+      return this.nodes.map(node => Number.parseInt(node.status.allocatable['intel/pac_a10'] || '0')).reduce((allocatable, nodeAllocatable) => allocatable + nodeAllocatable, 0);
+    },
+
+    intelPacA10Capacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/pac_a10'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+
+    intelPacA10Reserved() {
+      return {
+        total:  this.intelPacA10Capacity,
+        useful: this.intelPacA10Allocatable
+      };
+    },
+
+    intelPacA10Used() {
+      return {
+        total:  this.intelPacA10Capacity,
+        useful: this.intelPacA10Usage
+      };
+    },
+
+    intelPacS10DcUsage() {
+      return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((usage, limit) => usage + limit, 0.0);
+    },
+
+    intelPacS10DcAllocatable() {
+      return this.nodes.map(node => Number.parseInt(node.status.allocatable['intel/pac_s10_dc'] || '0')).reduce((allocatable, nodeAllocatable) => allocatable + nodeAllocatable, 0);
+    },
+
+    intelPacS10DcCapacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/pac_s10_dc'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+
+    intelPacS10DcReserved() {
+      return {
+        total:  this.intelPacS10DcCapacity,
+        useful: this.intelPacS10DcAllocatable
+      };
+    },
+
+    intelPacS10DcUsed() {
+      return {
+        total:  this.intelPacS10DcCapacity,
+        useful: this.intelPacS10DcUsage
+      };
+    },
+
     hasMetricNodeSchema() {
       const inStore = this.$store.getters['currentProduct'].inStore;
 
@@ -576,6 +662,26 @@ export default {
           :name="t('harvester.dashboard.hardwareResourceGauge.storage')"
           :used="storageUsed"
           :reserved="storageReserved"
+        />
+      </div>
+    </template>
+
+    <template v-if="nodes.length && hasMetricNodeSchema">
+      <h3 class="mt-40">
+        {{ t('clusterIndexPage.sections.fpgaUsage.label') }}
+      </h3>
+      <div
+        class="hardware-resource-gauges"
+      >
+        <HardwareResourceGauge
+          :name="t('harvester.dashboard.hardwareResourceGauge.intelPacA10')"
+          :reserved="intelPacA10Reserved"
+          :used="intelPacA10Used"
+        />
+        <HardwareResourceGauge
+          :name="t('harvester.dashboard.hardwareResourceGauge.intelPacS10Dc')"
+          :reserved="intelPacS10DcReserved"
+          :used="intelPacS10DcUsed"
         />
       </div>
     </template>

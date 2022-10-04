@@ -5,6 +5,7 @@ import { formatSi, exponentNeeded, UNITS } from '@shell/utils/units';
 import { HCI as HCI_ANNOTATIONS } from '@shell/config/labels-annotations';
 import { LONGHORN, METRIC, HCI } from '@shell/config/types';
 import HarvesterCPUUsed from '@shell/components/formatter/HarvesterCPUUsed';
+import HarvesterFPGAUsed from '@shell/components/formatter/HarvesterFPGAUsed';
 import HarvesterMemoryUsed from '@shell/components/formatter/HarvesterMemoryUsed';
 import HarvesterStorageUsed from '@shell/components/formatter/HarvesterStorageUsed';
 
@@ -20,6 +21,7 @@ export default {
     LabelValue,
     Banner,
     HarvesterCPUUsed,
+    HarvesterFPGAUsed,
     HarvesterMemoryUsed,
     HarvesterStorageUsed,
   },
@@ -333,6 +335,28 @@ export default {
           <HarvesterStorageUsed
             :row="value"
             :resource-name="t('harvester.host.detail.storage')"
+            :show-reserved="true"
+          />
+        </div>
+      </div>
+      <div class="row mb-20">
+        <div
+          class="col span-4"
+        >
+          <HarvesterFPGAUsed
+            :row="value"
+            :resource-name="t('node.detail.glance.consumptionGauge.intelPacA10')"
+            :intel-pac-a10-only="true"
+            :show-reserved="true"
+          />
+        </div>
+        <div
+          class="col span-4"
+        >
+          <HarvesterFPGAUsed
+            :row="value"
+            :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10Dc')"
+            :intel-pac-s10-dc-only="true"
             :show-reserved="true"
           />
         </div>

@@ -3222,6 +3222,7 @@ node:
         used: 已使用
         amount: "已使用 {total} {unit} 中的 {used}"
         cpu: CPU
+        fpga: FPGA
         memory: 内存
         pods: Pod
         intelPacA10: Intel PAC A10
@@ -5667,6 +5668,8 @@ harvester:
       cpu: CPU
       memory: 内存
       storage: 存储
+      intelPacA10: Intel PAC A10
+      intelPacS10Dc: Intel PAC S10 DC
     sections:
       events:
         label: 事件

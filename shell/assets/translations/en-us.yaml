@@ -3267,6 +3267,7 @@ node:
         used: Used
         amount: "{used} of {total} {unit}"
         cpu: CPU
+        fpga: FPGA
         memory: MEMORY
         pods: PODS
         intelPacA10: Intel PAC A10
@@ -5716,6 +5717,8 @@ harvester:
       cpu: CPU
       memory: Memory
       storage: Storage
+      intelPacA10: Intel PAC A10
+      intelPacS10Dc: Intel PAC S10 DC
     sections:
       events:
         label: Events
