@@ -373,6 +373,10 @@ export default {
       };
     },
 
+    fpgaCapacity() {
+      return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+    },
+
     hasMonitoring() {
       return !!this.clusterCounts?.[0]?.counts?.[CATALOG.APP]?.namespaces?.['cattle-monitoring-system'];
     },
@@ -502,12 +506,12 @@ export default {
       <HardwareResourceGauge :name="t('clusterIndexPage.hardwareResourceGauge.ram')" :reserved="ramReserved" :used="ramUsed" :units="ramReserved.units" />
     </div>
 
-    <h3 v-if="!hasV1Monitoring && hasStats" class="mt-40">
+    <h3 v-if="!hasV1Monitoring && hasStats && fpgaCapacity" class="mt-40">
       {{ t('clusterIndexPage.sections.fpgaUsage.label') }}
     </h3>
-    <div v-if="!hasV1Monitoring && hasStats" class="hardware-resource-gauges">
-      <HardwareResourceGauge :name="t('clusterIndexPage.hardwareResourceGauge.intelPacA10')" :used="intelPacA10Used" />
-      <HardwareResourceGauge :name="t('clusterIndexPage.hardwareResourceGauge.intelPacS10Dc')" :used="intelPacS10DcUsed" />
+    <div v-if="!hasV1Monitoring && hasStats && fpgaCapacity" class="hardware-resource-gauges">
+      <HardwareResourceGauge v-if="intelPacA10Capacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacA10')" :used="intelPacA10Used" />
+      <HardwareResourceGauge v-if="intelPacS10DcCapacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacS10Dc')" :used="intelPacS10DcUsed" />
     </div>
 
     <div v-if="!hasV1Monitoring && componentServices">

@@ -211,11 +211,11 @@ export default {
       <ConsumptionGauge :resource-name="t('node.detail.glance.consumptionGauge.pods')" :capacity="value.podCapacity" :used="value.podConsumed" />
     </div>
     <div class="spacer"></div>
-    <div class="resources">
-      <ConsumptionGauge :resource-name="t('node.detail.glance.consumptionGauge.intelPacA10')" :capacity="value.intelPacA10Capacity" :used="value.intelPacA10Usage" />
-      <ConsumptionGauge :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10Dc')" :capacity="value.intelPacS10DcCapacity" :used="value.intelPacS10DcUsage" />
+    <div v-if="value.fpgaCapacity" class="resources">
+      <ConsumptionGauge v-if="value.intelPacA10Capacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacA10')" :capacity="value.intelPacA10Capacity" :used="value.intelPacA10Usage" />
+      <ConsumptionGauge v-if="value.intelPacS10DcCapacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10Dc')" :capacity="value.intelPacS10DcCapacity" :used="value.intelPacS10DcUsage" />
     </div>
-    <div class="spacer"></div>
+    <div v-if="value.fpgaCapacity" class="spacer"></div>
     <ResourceTabs v-model="value" :mode="mode">
       <Tab name="pods" :label="t('node.detail.tab.pods')" :weight="4">
         <SortableTable

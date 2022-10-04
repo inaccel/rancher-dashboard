@@ -166,6 +166,18 @@ export default {
       return `${ UNITS[exponent] }iB`;
     },
 
+    intelPacA10Capacity() {
+      return Number.parseInt(this.value.status.capacity['intel/pac_a10'] || '0');
+    },
+
+    intelPacS10DcCapacity() {
+      return Number.parseInt(this.value.status.capacity['intel/pac_s10_dc'] || '0');
+    },
+
+    fpgaCapacity() {
+      return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+    },
+
     nodeType() {
       return this.value.isMaster ? this.t('harvester.host.detail.management') : this.t('harvester.host.detail.compute');
     },
@@ -339,8 +351,9 @@ export default {
           />
         </div>
       </div>
-      <div class="row mb-20">
+      <div v-if="fpgaCapacity" class="row mb-20">
         <div
+          v-if="intelPacA10Capacity"
           class="col span-4"
         >
           <HarvesterFPGAUsed
@@ -351,6 +364,7 @@ export default {
           />
         </div>
         <div
+          v-if="intelPacS10DcCapacity"
           class="col span-4"
         >
           <HarvesterFPGAUsed

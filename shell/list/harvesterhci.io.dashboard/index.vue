@@ -519,6 +519,10 @@ export default {
       };
     },
 
+    fpgaCapacity() {
+      return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+    },
+
     hasMetricNodeSchema() {
       const inStore = this.$store.getters['currentProduct'].inStore;
 
@@ -666,7 +670,7 @@ export default {
       </div>
     </template>
 
-    <template v-if="nodes.length && hasMetricNodeSchema">
+    <template v-if="nodes.length && hasMetricNodeSchema && fpgaCapacity">
       <h3 class="mt-40">
         {{ t('clusterIndexPage.sections.fpgaUsage.label') }}
       </h3>
@@ -674,11 +678,13 @@ export default {
         class="hardware-resource-gauges"
       >
         <HardwareResourceGauge
+          v-if="intelPacA10Capacity"
           :name="t('harvester.dashboard.hardwareResourceGauge.intelPacA10')"
           :reserved="intelPacA10Reserved"
           :used="intelPacA10Used"
         />
         <HardwareResourceGauge
+          v-if="intelPacS10DcCapacity"
           :name="t('harvester.dashboard.hardwareResourceGauge.intelPacS10Dc')"
           :reserved="intelPacS10DcReserved"
           :used="intelPacS10DcUsed"
