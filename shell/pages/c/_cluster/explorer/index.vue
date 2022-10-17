@@ -341,17 +341,17 @@ export default {
       };
     },
 
-    intelPacS10DcUsage() {
+    intelPacS10Usage() {
       return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
         let limit = 0;
 
         pod.spec.containers?.forEach((container) => {
-          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
 
           limit += quantity;
         });
         pod.spec.initContainers?.forEach((container) => {
-          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
 
           if (quantity > limit) {
             limit = quantity;
@@ -362,19 +362,19 @@ export default {
       }).reduce((usage, limit) => usage + limit, 0.0);
     },
 
-    intelPacS10DcCapacity() {
-      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/pac_s10_dc'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    intelPacS10Capacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/pac_s10'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
     },
 
-    intelPacS10DcUsed() {
+    intelPacS10Used() {
       return {
-        total:  this.intelPacS10DcCapacity,
-        useful: this.intelPacS10DcUsage
+        total:  this.intelPacS10Capacity,
+        useful: this.intelPacS10Usage
       };
     },
 
     fpgaCapacity() {
-      return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+      return this.intelPacA10Capacity + this.intelPacS10Capacity;
     },
 
     hasMonitoring() {
@@ -511,7 +511,7 @@ export default {
     </h3>
     <div v-if="!hasV1Monitoring && hasStats && fpgaCapacity" class="hardware-resource-gauges">
       <HardwareResourceGauge v-if="intelPacA10Capacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacA10')" :used="intelPacA10Used" />
-      <HardwareResourceGauge v-if="intelPacS10DcCapacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacS10Dc')" :used="intelPacS10DcUsed" />
+      <HardwareResourceGauge v-if="intelPacS10Capacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacS10')" :used="intelPacS10Used" />
     </div>
 
     <div v-if="!hasV1Monitoring && componentServices">

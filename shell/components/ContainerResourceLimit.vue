@@ -39,11 +39,11 @@ export default {
 
   data() {
     const {
-      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10Dc
+      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10
     } = this.value;
 
     return {
-      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10Dc, viewMode: _VIEW
+      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10, viewMode: _VIEW
     };
   },
 
@@ -76,7 +76,7 @@ export default {
         requestsCpu,
         requestsMemory,
         limitsIntelPacA10,
-        limitsIntelPacS10Dc
+        limitsIntelPacS10
       } = this;
 
       this.$emit('input', cleanUp({
@@ -84,7 +84,7 @@ export default {
         limitsMemory,
         requestsCpu,
         limitsIntelPacA10,
-        limitsIntelPacS10Dc,
+        limitsIntelPacS10,
         requestsMemory
       }));
     },
@@ -96,7 +96,7 @@ export default {
         requestsCpu,
         requestsMemory,
         limitsIntelPacA10,
-        limitsIntelPacS10Dc
+        limitsIntelPacS10
       } = this;
       const namespace = this.namespace; // no deep copy in destructure proxy yet
 
@@ -105,7 +105,7 @@ export default {
         limitsMemory,
         requestsCpu,
         limitsIntelPacA10,
-        limitsIntelPacS10Dc,
+        limitsIntelPacS10,
         requestsMemory
       });
 
@@ -126,7 +126,7 @@ export default {
           requestsCpu,
           requestsMemory,
           limitsIntelPacA10,
-          limitsIntelPacS10Dc
+          limitsIntelPacS10
         } = JSON.parse(defaults);
 
         this.limitsCpu = limitsCpu;
@@ -134,7 +134,7 @@ export default {
         this.requestsCpu = requestsCpu;
         this.requestsMemory = requestsMemory;
         this.limitsIntelPacA10 = limitsIntelPacA10;
-        this.limitsIntelPacS10Dc = limitsIntelPacS10Dc;
+        this.limitsIntelPacS10 = limitsIntelPacS10;
       }
     },
   }
@@ -219,9 +219,9 @@ export default {
       </span>
       <span class="col span-6">
         <UnitInput
-          v-model="limitsIntelPacS10Dc"
+          v-model="limitsIntelPacS10"
           :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
-          :label="t('containerResourceLimit.limitsIntelPacS10Dc')"
+          :label="t('containerResourceLimit.limitsIntelPacS10')"
           :mode="mode"
           :base-unit="t('suffix.fpgas')"
           @input="updateLimits"

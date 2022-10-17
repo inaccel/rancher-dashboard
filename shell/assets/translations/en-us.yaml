@@ -1750,7 +1750,7 @@ clusterIndexPage:
     pods: Pods
     ram: Memory
     intelPacA10: Intel PAC A10
-    intelPacS10Dc: Intel PAC S10 DC
+    intelPacS10: Intel PAC S10
     used: Used
     reserved: Reserved
   header: Cluster Dashboard
@@ -1804,7 +1804,7 @@ containerResourceLimit:
   label: Container Default Resource Limit
   limitsCpu: CPU Limit
   limitsIntelPacA10: Intel PAC A10 Limit/Reservation
-  limitsIntelPacS10Dc: Intel PAC S10 DC Limit/Reservation
+  limitsIntelPacS10: Intel PAC S10 Limit/Reservation
   limitsMemory: Memory Limit
   memPlaceholder: e.g. 128
   requestsCpu: CPU Reservation
@@ -3271,7 +3271,7 @@ node:
         memory: MEMORY
         pods: PODS
         intelPacA10: Intel PAC A10
-        intelPacS10Dc: Intel PAC S10 DC
+        intelPacS10: Intel PAC S10
       diskPressure: Disk Pressure
       kubelet: kubelet
       memoryPressure: Memory Pressure
@@ -5718,7 +5718,7 @@ harvester:
       memory: Memory
       storage: Storage
       intelPacA10: Intel PAC A10
-      intelPacS10Dc: Intel PAC S10 DC
+      intelPacS10: Intel PAC S10
     sections:
       events:
         label: Events

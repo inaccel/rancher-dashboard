@@ -170,12 +170,12 @@ export default {
       return Number.parseInt(this.value.status.capacity['intel/pac_a10'] || '0');
     },
 
-    intelPacS10DcCapacity() {
-      return Number.parseInt(this.value.status.capacity['intel/pac_s10_dc'] || '0');
+    intelPacS10Capacity() {
+      return Number.parseInt(this.value.status.capacity['intel/pac_s10'] || '0');
     },
 
     fpgaCapacity() {
-      return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+      return this.intelPacA10Capacity + this.intelPacS10Capacity;
     },
 
     nodeType() {
@@ -364,13 +364,13 @@ export default {
           />
         </div>
         <div
-          v-if="intelPacS10DcCapacity"
+          v-if="intelPacS10Capacity"
           class="col span-4"
         >
           <HarvesterFPGAUsed
             :row="value"
-            :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10Dc')"
-            :intel-pac-s10-dc-only="true"
+            :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10')"
+            :intel-pac-s10-only="true"
             :show-reserved="true"
           />
         </div>

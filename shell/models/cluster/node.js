@@ -192,17 +192,17 @@ export default class ClusterNode extends SteveModel {
     return ((this.intelPacA10Usage * 100) / this.intelPacA10Capacity).toString();
   }
 
-  get intelPacS10DcUsage() {
+  get intelPacS10Usage() {
     return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
       let limit = 0;
 
       pod.spec.containers?.forEach((container) => {
-        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
 
         limit += quantity;
       });
       pod.spec.initContainers?.forEach((container) => {
-        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
 
         if (quantity > limit) {
           limit = quantity;
@@ -213,20 +213,20 @@ export default class ClusterNode extends SteveModel {
     }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
   }
 
-  get intelPacS10DcCapacity() {
-    return Number.parseInt(this.status.capacity['intel/pac_s10_dc'] || '0');
+  get intelPacS10Capacity() {
+    return Number.parseInt(this.status.capacity['intel/pac_s10'] || '0');
   }
 
-  get intelPacS10DcUsagePercentage() {
-    return ((this.intelPacS10DcUsage * 100) / this.intelPacS10DcCapacity).toString();
+  get intelPacS10UsagePercentage() {
+    return ((this.intelPacS10Usage * 100) / this.intelPacS10Capacity).toString();
   }
 
   get fpgaUsage() {
-    return this.intelPacA10Usage + this.intelPacS10DcUsage;
+    return this.intelPacA10Usage + this.intelPacS10Usage;
   }
 
   get fpgaCapacity() {
-    return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+    return this.intelPacA10Capacity + this.intelPacS10Capacity;
   }
 
   get fpgaUsagePercentage() {

@@ -213,7 +213,7 @@ export default {
     <div class="spacer"></div>
     <div v-if="value.fpgaCapacity" class="resources">
       <ConsumptionGauge v-if="value.intelPacA10Capacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacA10')" :capacity="value.intelPacA10Capacity" :used="value.intelPacA10Usage" />
-      <ConsumptionGauge v-if="value.intelPacS10DcCapacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10Dc')" :capacity="value.intelPacS10DcCapacity" :used="value.intelPacS10DcUsage" />
+      <ConsumptionGauge v-if="value.intelPacS10Capacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10')" :capacity="value.intelPacS10Capacity" :used="value.intelPacS10Usage" />
     </div>
     <div v-if="value.fpgaCapacity" class="spacer"></div>
     <ResourceTabs v-model="value" :mode="mode">

@@ -59,7 +59,7 @@ const TAB_WEIGHT_MAP = {
 };
 
 const INTEL_PAC_A10_KEY = 'intel/pac_a10';
-const INTEL_PAC_S10_DC_KEY = 'intel/pac_s10_dc';
+const INTEL_PAC_S10_KEY = 'intel/pac_s10';
 
 export default {
   name:       'CruWorkload',
@@ -347,7 +347,7 @@ export default {
           cpu: limitsCpu,
           memory: limitsMemory,
           [INTEL_PAC_A10_KEY]: limitsIntelPacA10,
-          [INTEL_PAC_S10_DC_KEY]: limitsIntelPacS10Dc,
+          [INTEL_PAC_S10_KEY]: limitsIntelPacS10,
         } = limits;
         const { cpu: requestsCpu, memory: requestsMemory } = requests;
 
@@ -357,7 +357,7 @@ export default {
           requestsCpu,
           requestsMemory,
           limitsIntelPacA10,
-          limitsIntelPacS10Dc,
+          limitsIntelPacS10,
         };
       },
       set(neu) {
@@ -367,7 +367,7 @@ export default {
           requestsCpu,
           requestsMemory,
           limitsIntelPacA10,
-          limitsIntelPacS10Dc,
+          limitsIntelPacS10,
         } = neu;
 
         const out = {
@@ -376,10 +376,10 @@ export default {
             memory: requestsMemory,
           },
           limits: {
-            cpu:                    limitsCpu,
-            memory:                 limitsMemory,
-            [INTEL_PAC_A10_KEY]:    limitsIntelPacA10,
-            [INTEL_PAC_S10_DC_KEY]: limitsIntelPacS10Dc,
+            cpu:                 limitsCpu,
+            memory:              limitsMemory,
+            [INTEL_PAC_A10_KEY]: limitsIntelPacA10,
+            [INTEL_PAC_S10_KEY]: limitsIntelPacS10,
           },
         };
 
@@ -655,17 +655,17 @@ export default {
         const containerResources = template.spec.containers[0].resources;
         const intelPacA10Limit =
           template.spec.containers[0].resources?.limits?.[INTEL_PAC_A10_KEY];
-        const intelPacS10DcLimit =
-          template.spec.containers[0].resources?.limits?.[INTEL_PAC_S10_DC_KEY];
+        const intelPacS10Limit =
+          template.spec.containers[0].resources?.limits?.[INTEL_PAC_S10_KEY];
 
         // Though not required, requests are also set to mirror the ember ui
         if (intelPacA10Limit > 0) {
           containerResources.requests = containerResources.requests || {};
           containerResources.requests[INTEL_PAC_A10_KEY] = intelPacA10Limit;
         }
-        if (intelPacS10DcLimit > 0) {
+        if (intelPacS10Limit > 0) {
           containerResources.requests = containerResources.requests || {};
-          containerResources.requests[INTEL_PAC_S10_DC_KEY] = intelPacS10DcLimit;
+          containerResources.requests[INTEL_PAC_S10_KEY] = intelPacS10Limit;
         }
 
         if (!this.fpgaLimitIsValid(intelPacA10Limit)) {
@@ -684,10 +684,10 @@ export default {
             }
           } catch {}
         }
-        if (!this.fpgaLimitIsValid(intelPacS10DcLimit)) {
+        if (!this.fpgaLimitIsValid(intelPacS10Limit)) {
           try {
-            delete containerResources.requests[INTEL_PAC_S10_DC_KEY];
-            delete containerResources.limits[INTEL_PAC_S10_DC_KEY];
+            delete containerResources.requests[INTEL_PAC_S10_KEY];
+            delete containerResources.limits[INTEL_PAC_S10_KEY];
 
             if (Object.keys(containerResources.limits).length === 0) {
               delete containerResources.limits;

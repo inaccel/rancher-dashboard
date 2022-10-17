@@ -27,7 +27,7 @@ export default {
       default: false,
     },
 
-    intelPacS10DcOnly: {
+    intelPacS10Only: {
       type:    Boolean,
       default: false,
     },
@@ -86,17 +86,17 @@ export default {
       return Number.parseInt(this.node.status.capacity['intel/pac_a10'] || '0');
     },
 
-    intelPacS10DcUsage() {
+    intelPacS10Usage() {
       return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
         let limit = 0;
 
         pod.spec.containers?.forEach((container) => {
-          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
 
           limit += quantity;
         });
         pod.spec.initContainers?.forEach((container) => {
-          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_dc'] || '0');
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
 
           if (quantity > limit) {
             limit = quantity;
@@ -107,45 +107,45 @@ export default {
       }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
     },
 
-    intelPacS10DcAllocatable() {
-      return Number.parseInt(this.node.status.capacity['intel/pac_s10_dc'] || '0');
+    intelPacS10Allocatable() {
+      return Number.parseInt(this.node.status.capacity['intel/pac_s10'] || '0');
     },
 
-    intelPacS10DcCapacity() {
-      return Number.parseInt(this.node.status.capacity['intel/pac_s10_dc'] || '0');
+    intelPacS10Capacity() {
+      return Number.parseInt(this.node.status.capacity['intel/pac_s10'] || '0');
     },
 
     fpgaUsage() {
       if (this.intelPacA10Only) {
         return this.intelPacA10Usage;
       }
-      if (this.intelPacS10DcOnly) {
-        return this.intelPacS10DcUsage;
+      if (this.intelPacS10Only) {
+        return this.intelPacS10Usage;
       }
 
-      return this.intelPacA10Usage + this.intelPacS10DcUsage;
+      return this.intelPacA10Usage + this.intelPacS10Usage;
     },
 
     fpgaAllocatable() {
       if (this.intelPacA10Only) {
         return this.intelPacA10Allocatable;
       }
-      if (this.intelPacS10DcOnly) {
-        return this.intelPacS10DcAllocatable;
+      if (this.intelPacS10Only) {
+        return this.intelPacS10Allocatable;
       }
 
-      return this.intelPacA10Allocatable + this.intelPacS10DcAllocatable;
+      return this.intelPacA10Allocatable + this.intelPacS10Allocatable;
     },
 
     fpgaCapacity() {
       if (this.intelPacA10Only) {
         return this.intelPacA10Capacity;
       }
-      if (this.intelPacS10DcOnly) {
-        return this.intelPacS10DcCapacity;
+      if (this.intelPacS10Only) {
+        return this.intelPacS10Capacity;
       }
 
-      return this.intelPacA10Capacity + this.intelPacS10DcCapacity;
+      return this.intelPacA10Capacity + this.intelPacS10Capacity;
     },
   },
 };
