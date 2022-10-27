@@ -900,8 +900,9 @@ catalog:
       label: Git Repo URL
       placeholder: 'e.g. https://github.com/your-company/charts.git'
     name:
-      rancher-charts: '{vendor}'
-      rancher-partner-charts: Partners
+      inaccel-marketplace-charts: InAccel Marketplace
+      rancher-charts: Rancher
+      rancher-partner-charts: Rancher Partners
       rancher-rke2-charts: RKE2
     target:
       git: Git repository containing Helm chart or cluster template definitions

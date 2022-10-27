@@ -887,8 +887,9 @@ catalog:
       label: Git 仓库 URL
       placeholder: '例如：https://github.com/your-company/charts.git'
     name:
-      rancher-charts: '{vendor}'
-      rancher-partner-charts: Partner
+      inaccel-marketplace-charts: InAccel Marketplace
+      rancher-charts: Rancher
+      rancher-partner-charts: Rancher Partners
       rancher-rke2-charts: RKE2
     target:
       git: 包含定义了 Helm Chart 或集群模板的 Git 仓库。
