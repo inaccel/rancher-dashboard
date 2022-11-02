@@ -60,6 +60,7 @@ const TAB_WEIGHT_MAP = {
 
 const INTEL_PAC_A10_KEY = 'intel/pac_a10';
 const INTEL_PAC_S10_KEY = 'intel/pac_s10';
+const INTEL_PAC_S10_USM_KEY = 'intel/pac_s10_usm';
 
 export default {
   name:       'CruWorkload',
@@ -348,6 +349,7 @@ export default {
           memory: limitsMemory,
           [INTEL_PAC_A10_KEY]: limitsIntelPacA10,
           [INTEL_PAC_S10_KEY]: limitsIntelPacS10,
+          [INTEL_PAC_S10_USM_KEY]: limitsIntelPacS10Usm,
         } = limits;
         const { cpu: requestsCpu, memory: requestsMemory } = requests;
 
@@ -358,6 +360,7 @@ export default {
           requestsMemory,
           limitsIntelPacA10,
           limitsIntelPacS10,
+          limitsIntelPacS10Usm,
         };
       },
       set(neu) {
@@ -368,6 +371,7 @@ export default {
           requestsMemory,
           limitsIntelPacA10,
           limitsIntelPacS10,
+          limitsIntelPacS10Usm,
         } = neu;
 
         const out = {
@@ -376,10 +380,11 @@ export default {
             memory: requestsMemory,
           },
           limits: {
-            cpu:                 limitsCpu,
-            memory:              limitsMemory,
-            [INTEL_PAC_A10_KEY]: limitsIntelPacA10,
-            [INTEL_PAC_S10_KEY]: limitsIntelPacS10,
+            cpu:                     limitsCpu,
+            memory:                  limitsMemory,
+            [INTEL_PAC_A10_KEY]:     limitsIntelPacA10,
+            [INTEL_PAC_S10_KEY]:     limitsIntelPacS10,
+            [INTEL_PAC_S10_USM_KEY]: limitsIntelPacS10Usm,
           },
         };
 
@@ -657,6 +662,8 @@ export default {
           template.spec.containers[0].resources?.limits?.[INTEL_PAC_A10_KEY];
         const intelPacS10Limit =
           template.spec.containers[0].resources?.limits?.[INTEL_PAC_S10_KEY];
+        const intelPacS10UsmLimit =
+          template.spec.containers[0].resources?.limits?.[INTEL_PAC_S10_USM_KEY];
 
         // Though not required, requests are also set to mirror the ember ui
         if (intelPacA10Limit > 0) {
@@ -666,6 +673,10 @@ export default {
         if (intelPacS10Limit > 0) {
           containerResources.requests = containerResources.requests || {};
           containerResources.requests[INTEL_PAC_S10_KEY] = intelPacS10Limit;
+        }
+        if (intelPacS10UsmLimit > 0) {
+          containerResources.requests = containerResources.requests || {};
+          containerResources.requests[INTEL_PAC_S10_USM_KEY] = intelPacS10UsmLimit;
         }
 
         if (!this.fpgaLimitIsValid(intelPacA10Limit)) {
@@ -688,6 +699,22 @@ export default {
           try {
             delete containerResources.requests[INTEL_PAC_S10_KEY];
             delete containerResources.limits[INTEL_PAC_S10_KEY];
+
+            if (Object.keys(containerResources.limits).length === 0) {
+              delete containerResources.limits;
+            }
+            if (Object.keys(containerResources.requests).length === 0) {
+              delete containerResources.requests;
+            }
+            if (Object.keys(containerResources).length === 0) {
+              delete template.spec.containers[0].resources;
+            }
+          } catch {}
+        }
+        if (!this.fpgaLimitIsValid(intelPacS10UsmLimit)) {
+          try {
+            delete containerResources.requests[INTEL_PAC_S10_USM_KEY];
+            delete containerResources.limits[INTEL_PAC_S10_USM_KEY];
 
             if (Object.keys(containerResources.limits).length === 0) {
               delete containerResources.limits;

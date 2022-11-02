@@ -373,8 +373,40 @@ export default {
       };
     },
 
+    intelPacS10UsmUsage() {
+      return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_usm'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_usm'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((usage, limit) => usage + limit, 0.0);
+    },
+
+    intelPacS10UsmCapacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/pac_s10_usm'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+
+    intelPacS10UsmUsed() {
+      return {
+        total:  this.intelPacS10UsmCapacity,
+        useful: this.intelPacS10UsmUsage
+      };
+    },
+
     fpgaCapacity() {
-      return this.intelPacA10Capacity + this.intelPacS10Capacity;
+      return this.intelPacA10Capacity + this.intelPacS10Capacity + this.intelPacS10UsmCapacity;
     },
 
     hasMonitoring() {
@@ -512,6 +544,7 @@ export default {
     <div v-if="!hasV1Monitoring && hasStats && fpgaCapacity" class="hardware-resource-gauges">
       <HardwareResourceGauge v-if="intelPacA10Capacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacA10')" :used="intelPacA10Used" />
       <HardwareResourceGauge v-if="intelPacS10Capacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacS10')" :used="intelPacS10Used" />
+      <HardwareResourceGauge v-if="intelPacS10UsmCapacity" :name="t('clusterIndexPage.hardwareResourceGauge.intelPacS10Usm')" :used="intelPacS10UsmUsed" />
     </div>
 
     <div v-if="!hasV1Monitoring && componentServices">

@@ -1734,6 +1734,7 @@ clusterIndexPage:
     ram: 内存
     intelPacA10: Intel PAC A10
     intelPacS10: Intel PAC S10
+    intelPacS10Usm: Intel PAC S10 USM
     used: 已使用
     reserved: 已预留
   header: 集群仪表板
@@ -1788,6 +1789,7 @@ containerResourceLimit:
   limitsCpu: CPU 限制
   limitsIntelPacA10: Intel PAC A10 限制/预留
   limitsIntelPacS10: Intel PAC S10 限制/预留
+  limitsIntelPacS10Usm: Intel PAC S10 USM 限制/预留
   limitsMemory: 内存限制
   memPlaceholder: 例如：128
   requestsCpu: CPU 预留
@@ -3228,6 +3230,7 @@ node:
         pods: Pod
         intelPacA10: Intel PAC A10
         intelPacS10: Intel PAC S10
+        intelPacS10Usm: Intel PAC S10 USM
       diskPressure: 磁盘压力
       kubelet: Kubelet
       memoryPressure: 内存压力

@@ -221,12 +221,41 @@ export default class ClusterNode extends SteveModel {
     return ((this.intelPacS10Usage * 100) / this.intelPacS10Capacity).toString();
   }
 
+  get intelPacS10UsmUsage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_usm'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_usm'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelPacS10UsmCapacity() {
+    return Number.parseInt(this.status.capacity['intel/pac_s10_usm'] || '0');
+  }
+
+  get intelPacS10UsmUsagePercentage() {
+    return ((this.intelPacS10UsmUsage * 100) / this.intelPacS10UsmCapacity).toString();
+  }
+
   get fpgaUsage() {
-    return this.intelPacA10Usage + this.intelPacS10Usage;
+    return this.intelPacA10Usage + this.intelPacS10Usage + this.intelPacS10UsmUsage;
   }
 
   get fpgaCapacity() {
-    return this.intelPacA10Capacity + this.intelPacS10Capacity;
+    return this.intelPacA10Capacity + this.intelPacS10Capacity + this.intelPacS10UsmCapacity;
   }
 
   get fpgaUsagePercentage() {

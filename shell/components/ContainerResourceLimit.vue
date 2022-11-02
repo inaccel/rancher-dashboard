@@ -39,11 +39,11 @@ export default {
 
   data() {
     const {
-      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10
+      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10, limitsIntelPacS10Usm
     } = this.value;
 
     return {
-      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10, viewMode: _VIEW
+      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelPacA10, limitsIntelPacS10, limitsIntelPacS10Usm, viewMode: _VIEW
     };
   },
 
@@ -76,7 +76,8 @@ export default {
         requestsCpu,
         requestsMemory,
         limitsIntelPacA10,
-        limitsIntelPacS10
+        limitsIntelPacS10,
+        limitsIntelPacS10Usm
       } = this;
 
       this.$emit('input', cleanUp({
@@ -85,6 +86,7 @@ export default {
         requestsCpu,
         limitsIntelPacA10,
         limitsIntelPacS10,
+        limitsIntelPacS10Usm,
         requestsMemory
       }));
     },
@@ -96,7 +98,8 @@ export default {
         requestsCpu,
         requestsMemory,
         limitsIntelPacA10,
-        limitsIntelPacS10
+        limitsIntelPacS10,
+        limitsIntelPacS10Usm
       } = this;
       const namespace = this.namespace; // no deep copy in destructure proxy yet
 
@@ -106,6 +109,7 @@ export default {
         requestsCpu,
         limitsIntelPacA10,
         limitsIntelPacS10,
+        limitsIntelPacS10Usm,
         requestsMemory
       });
 
@@ -126,7 +130,8 @@ export default {
           requestsCpu,
           requestsMemory,
           limitsIntelPacA10,
-          limitsIntelPacS10
+          limitsIntelPacS10,
+          limitsIntelPacS10Usm
         } = JSON.parse(defaults);
 
         this.limitsCpu = limitsCpu;
@@ -135,6 +140,7 @@ export default {
         this.requestsMemory = requestsMemory;
         this.limitsIntelPacA10 = limitsIntelPacA10;
         this.limitsIntelPacS10 = limitsIntelPacS10;
+        this.limitsIntelPacS10Usm = limitsIntelPacS10Usm;
       }
     },
   }
@@ -206,7 +212,7 @@ export default {
         />
       </span>
     </div>
-    <div class="row">
+    <div class="row mb-20">
       <span class="col span-6">
         <UnitInput
           v-model="limitsIntelPacA10"
@@ -222,6 +228,18 @@ export default {
           v-model="limitsIntelPacS10"
           :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
           :label="t('containerResourceLimit.limitsIntelPacS10')"
+          :mode="mode"
+          :base-unit="t('suffix.fpgas')"
+          @input="updateLimits"
+        />
+      </span>
+    </div>
+    <div class="row mb-20">
+      <span class="col span-6">
+        <UnitInput
+          v-model="limitsIntelPacS10Usm"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelPacS10Usm')"
           :mode="mode"
           :base-unit="t('suffix.fpgas')"
           @input="updateLimits"
