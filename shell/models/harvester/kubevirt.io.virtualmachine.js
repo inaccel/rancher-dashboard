@@ -847,4 +847,19 @@ export default class VirtVm extends SteveModel {
 
     return qemu?.status === 'True';
   }
+
+  get displayFpga() {
+    let fpga = 0;
+
+    this.spec.template.spec.domain.devices?.hostDevices?.forEach((hostDevice) => {
+      if (hostDevice.deviceName === 'intel/pac_a10') {
+        fpga++;
+      }
+      if (hostDevice.deviceName === 'intel/pac_s10') {
+        fpga++;
+      }
+    });
+
+    return fpga;
+  }
 }
