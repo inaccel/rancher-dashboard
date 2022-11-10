@@ -30,7 +30,7 @@ export default {
 </script>
 
 <template>
-  <p v-if="!value || value === 'NaN'">
+  <p v-if="!value || value === 'Infinity' || value === 'NaN'">
     {{ t('generic.na') }}
   </p>
   <PercentageBarComponent
