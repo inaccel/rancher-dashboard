@@ -8,11 +8,7 @@ export default class Principal extends NormanModel {
     if ( this.provider === 'github' ) {
       return addParam(this.profilePicture, 's', 80); // Double the size it will be rendered, for @2x displays
     } else {
-      let id = this.id || 'Unknown';
-
-      id = id.replace(/[^:]+:\/\//, '');
-
-      const hash = md5(id, 'hex');
+      const hash = md5(this.loginName || 'Unknown', 'hex');
       const out = `https://source.boringavatars.com/sunset/80/${ hash }`;
 
       return out;
