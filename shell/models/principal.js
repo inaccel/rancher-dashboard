@@ -1,4 +1,3 @@
-import Identicon from 'identicon.js';
 import { md5 } from '@shell/utils/crypto';
 import { addParam } from '@shell/utils/url';
 import { ucFirst } from '@shell/utils/string';
@@ -14,7 +13,7 @@ export default class Principal extends NormanModel {
       id = id.replace(/[^:]+:\/\//, '');
 
       const hash = md5(id, 'hex');
-      const out = `data:image/png;base64,${ new Identicon(hash, 80, 0.01).toString() }`;
+      const out = `https://source.boringavatars.com/sunset/80/${ hash }`;
 
       return out;
     }
