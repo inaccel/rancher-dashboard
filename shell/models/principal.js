@@ -1,4 +1,3 @@
-import { md5 } from '@shell/utils/crypto';
 import { addParam } from '@shell/utils/url';
 import { ucFirst } from '@shell/utils/string';
 import NormanModel from '@shell/plugins/steve/norman-class';
@@ -8,8 +7,7 @@ export default class Principal extends NormanModel {
     if ( this.provider === 'github' ) {
       return addParam(this.profilePicture, 's', 80); // Double the size it will be rendered, for @2x displays
     } else {
-      const hash = md5(this.loginName || 'Unknown', 'hex');
-      const out = `https://source.boringavatars.com/sunset/80/${ hash }`;
+      const out = `https://source.boringavatars.com/marble/80/${ this.loginName }`;
 
       return out;
     }
