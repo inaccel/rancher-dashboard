@@ -5,6 +5,7 @@ HTML, BODY {
 
 H1, H2, H3, H4, H5, H6 {
   color: var(--body-text);
+  font-family: $header-font;
   font-style: normal;
   font-weight: 400;
   margin: 0 0 10px 0;

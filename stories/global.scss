@@ -29,7 +29,7 @@ CODE:not(.language-jsx) {
 
 div#root, button, input, optgroup, select, textarea {
   font-size: 14px;
-  font-family: "Lato", arial, helvetica, sans-serif;
+  font-family: $body-font;
 }
 
 .labeled-tooltip .status-icon {
