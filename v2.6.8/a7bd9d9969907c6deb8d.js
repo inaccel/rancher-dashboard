@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[47],{3235:function(e,t,n){"use strict";n.r(t);n(2),n(3),n(4),n(5);var r={name:"ClusterResourceCreate",components:{ResourceDetail:n(2674).a}},c=n(1),component=Object(c.a)(r,(function(){var e=this.$createElement;return(this._self._c||e)("ResourceDetail")}),[],!1,null,null,null);t.default=component.exports}}]);
-//# sourceMappingURL=a7bd9d9969907c6deb8d.js.map

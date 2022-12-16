@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[113],{3170:function(n,e,t){"use strict";t.r(e);t(2),t(3),t(4),t(5);var l={},r=t(1),component=Object(r.a)(l,(function(){var n=this,e=n.$createElement;return(n._self._c||e)("div",[n._v("\n  Clusters\n")])}),[],!1,null,null,null);e.default=component.exports}}]);
-//# sourceMappingURL=f43a05ab27965cbbe3c5.js.map

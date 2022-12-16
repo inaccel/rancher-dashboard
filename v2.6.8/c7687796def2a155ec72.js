@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[62],{3220:function(e,n,t){"use strict";t.r(n);t(2),t(3),t(4),t(5);var o={name:"RolesResourceCreate",components:{ResourceDetail:t(2668).a}},c=t(1),component=Object(c.a)(o,(function(){var e=this.$createElement;return(this._self._c||e)("ResourceDetail")}),[],!1,null,null,null);n.default=component.exports}}]);
+//# sourceMappingURL=c7687796def2a155ec72.js.map
