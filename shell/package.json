@@ -92,7 +92,6 @@
     "express": "^4.17.1",
     "file-saver": "^2.0.2",
     "frontmatter-markdown-loader": "^3.6.3",
-    "identicon.js": "^2.3.3",
     "intl-messageformat": "^7.7.2",
     "is-url": "^1.2.4",
     "jest": "^27.5.1",

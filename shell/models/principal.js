@@ -7,7 +7,7 @@ export default class Principal extends NormanModel {
     if ( this.provider === 'github' ) {
       return addParam(this.profilePicture, 's', 80); // Double the size it will be rendered, for @2x displays
     } else {
-      const out = `https://source.boringavatars.com/marble/80/${ this.loginName }`;
+      const out = `https://avatars.inaccel.com/api/${ this.loginName }`;
 
       return out;
     }
