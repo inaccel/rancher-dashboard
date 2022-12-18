@@ -2705,7 +2705,7 @@ neuvector:
         na: Resource Unavailable
 
 login:
-  howdy: Howdy!
+  howdy: Hello!
   welcome: Welcome to {vendor}
   loggedOut: You have been logged out.
   loginAgain: Log in again to continue.
