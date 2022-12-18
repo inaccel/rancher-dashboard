@@ -15,14 +15,6 @@ PERFORMANCE OF THIS SOFTWARE.
 
 
 /**
- * String.prototype.replaceAll() polyfill
- * https://gomakethings.com/how-to-replace-a-section-of-a-string-with-another-one-with-vanilla-js/
- * @author Chris Ferdinandi
- * @license MIT
- */
-
-
-/**
  * @license
  * Copyright (c) 2012-2013 Chris Pettitt
  *
@@ -261,6 +253,14 @@ v5.3.0
 https://github.com/mholt/PapaParse
 License: MIT
 */
+
+
+/**
+ * String.prototype.replaceAll() polyfill
+ * https://gomakethings.com/how-to-replace-a-section-of-a-string-with-another-one-with-vanilla-js/
+ * @author Chris Ferdinandi
+ * @license MIT
+ */
 
 
 /*!
