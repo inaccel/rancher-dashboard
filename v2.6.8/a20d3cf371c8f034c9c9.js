@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[104],{3226:function(e,r,t){"use strict";t.r(r);t(2),t(3),t(4),t(5);var n={name:"RouteReceiverDetail",components:{ResourceDetail:t(2675).a},data:function(){return{resource:this.$route.query.resource}}},o=t(1),component=Object(o.a)(n,(function(){var e=this,r=e.$createElement;return(e._self._c||r)("ResourceDetail",{attrs:{"resource-override":e.resource}})}),[],!1,null,null,null);r.default=component.exports}}]);
+//# sourceMappingURL=a20d3cf371c8f034c9c9.js.map
