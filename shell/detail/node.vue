@@ -205,12 +205,18 @@ export default {
       <Alert class="mr-10" :status="memoryPressureStatus" :message="t('node.detail.glance.memoryPressure')" />
       <Alert :status="kubeletStatus" :message="t('node.detail.glance.kubelet')" />
     </div>
-    <div class="mt-20 resources">
+    <div class="resources">
       <ConsumptionGauge :resource-name="t('node.detail.glance.consumptionGauge.cpu')" :capacity="value.cpuCapacity" :used="value.cpuUsage" />
       <ConsumptionGauge :resource-name="t('node.detail.glance.consumptionGauge.memory')" :capacity="value.ramCapacity" :used="value.ramUsage" :units="memoryUnits" :number-formatter="memoryFormatter" />
       <ConsumptionGauge :resource-name="t('node.detail.glance.consumptionGauge.pods')" :capacity="value.podCapacity" :used="value.podConsumed" />
     </div>
     <div class="spacer"></div>
+    <div v-if="value.fpgaCapacity" class="resources">
+      <ConsumptionGauge v-if="value.intelPacA10Capacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacA10')" :capacity="value.intelPacA10Capacity" :used="value.intelPacA10Usage" />
+      <ConsumptionGauge v-if="value.intelPacS10Capacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10')" :capacity="value.intelPacS10Capacity" :used="value.intelPacS10Usage" />
+      <ConsumptionGauge v-if="value.intelPacS10UsmCapacity" :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10Usm')" :capacity="value.intelPacS10UsmCapacity" :used="value.intelPacS10UsmUsage" />
+    </div>
+    <div v-if="value.fpgaCapacity" class="spacer"></div>
     <ResourceTabs v-model="value" :mode="mode">
       <Tab name="pods" :label="t('node.detail.tab.pods')" :weight="4">
         <SortableTable
@@ -276,10 +282,12 @@ export default {
 .resources {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
 
   & > * {
     width: 30%;
+    margin-top: 20px !important;
   }
 }
 </style>

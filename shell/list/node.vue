@@ -4,7 +4,7 @@ import Loading from '@shell/components/Loading';
 import Tag from '@shell/components/Tag';
 import { Banner } from '@components/Banner';
 import {
-  STATE, NAME, ROLES, VERSION, INTERNAL_EXTERNAL_IP, CPU, RAM, PODS, AGE, KUBE_NODE_OS
+  STATE, NAME, ROLES, VERSION, INTERNAL_EXTERNAL_IP, CPU, FPGA, RAM, PODS, AGE, KUBE_NODE_OS
 } from '@shell/config/table-headers';
 import metricPoller from '@shell/mixins/metric-poller';
 
@@ -99,6 +99,10 @@ export default {
           ...CPU,
           breakpoint: COLUMN_BREAKPOINTS.LAPTOP,
           getValue:   row => row.cpuUsagePercentage
+        }, {
+          ...FPGA,
+          breakpoint: COLUMN_BREAKPOINTS.LAPTOP,
+          getValue:   row => row.fpgaUsagePercentage
         }, {
           ...RAM,
           breakpoint: COLUMN_BREAKPOINTS.LAPTOP,

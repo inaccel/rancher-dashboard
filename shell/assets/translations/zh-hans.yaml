@@ -202,7 +202,7 @@ suffix:
   milliCpus: milli CPU
   cores: 核
   cpus: CPU
-  gpus: GPU
+  fpgas: FPGA
   ib: iB
   mib: MiB
   gb: GB
@@ -915,8 +915,9 @@ catalog:
       label: Git 仓库 URL
       placeholder: '例如：https://github.com/your-company/charts.git'
     name:
-      rancher-charts: '{vendor}'
-      rancher-partner-charts: Partner
+      inaccel-marketplace-charts: InAccel Marketplace
+      rancher-charts: Rancher
+      rancher-partner-charts: Rancher Partners
       rancher-rke2-charts: RKE2
     target:
       git: 包含定义了 Helm Chart 或集群模板的 Git 仓库。
@@ -1774,6 +1775,9 @@ clusterIndexPage:
     cores: CPU
     pods: Pod
     ram: 内存
+    intelPacA10: Intel PAC A10
+    intelPacS10: Intel PAC S10
+    intelPacS10Usm: Intel PAC S10 USM
     used: 已使用
     reserved: 已预留
   header: 集群仪表板
@@ -1782,6 +1786,8 @@ clusterIndexPage:
   sections:
     capacity:
       label: 容量
+    fpgaUsage:
+      label: FPGA 使用量
     events:
       label: 事件
       resource:
@@ -1819,12 +1825,14 @@ configmap:
 
 containerResourceLimit:
   cpuPlaceholder: 例如：1000
-  gpuPlaceholder: 例如：1
+  fpgaPlaceholder: 例如：1
   helpText: 配置容器可以使用的默认资源配额
   helpTextDetail: 容器可以使用的的默认资源配额
   label: 容器默认资源限制
   limitsCpu: CPU 限制
-  limitsGpu: NVIDIA GPU 限制/预留
+  limitsIntelPacA10: Intel PAC A10 限制/预留
+  limitsIntelPacS10: Intel PAC S10 限制/预留
+  limitsIntelPacS10Usm: Intel PAC S10 USM 限制/预留
   limitsMemory: 内存限制
   memPlaceholder: 例如：128
   requestsCpu: CPU 预留
@@ -3303,8 +3311,12 @@ node:
         used: 已使用
         amount: "已使用 {total} {unit} 中的 {used}"
         cpu: CPU
+        fpga: FPGA
         memory: 内存
         pods: Pod
+        intelPacA10: Intel PAC A10
+        intelPacS10: Intel PAC S10
+        intelPacS10Usm: Intel PAC S10 USM
       diskPressure: 磁盘压力
       kubelet: Kubelet
       memoryPressure: 内存压力
@@ -4784,6 +4796,7 @@ tableHeaders:
   expires: 过期时间
   providers: 提供商
   cpu: CPU
+  fpga: FPGA
   date: 日期
   default: 默认
   destination: 目标

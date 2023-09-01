@@ -44,7 +44,7 @@ export default {
 
 <style lang='scss' scoped>
 .line {
-  font-family: Menlo,Consolas,monospace;
+  font-family: $mono-font;
   color: var(--logs-text);
   display:flex;
 }
