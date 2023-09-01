@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[99],{2944:function(e,t,r){"use strict";r.r(t);r(2),r(3),r(4),r(5);var c=r(204),n={fetch:function(e){var t=e.store,r=e.redirect,n=t.getters.defaultClusterId;r(n?{name:"c-cluster",params:{cluster:n}}:{name:"c-cluster-product",params:{cluster:"local",product:c.NAME}})}},l=r(1),component=Object(l.a)(n,undefined,undefined,!1,null,null,null);t.default=component.exports}}]);
+//# sourceMappingURL=6f6053f7b072b1a52a32.js.map
