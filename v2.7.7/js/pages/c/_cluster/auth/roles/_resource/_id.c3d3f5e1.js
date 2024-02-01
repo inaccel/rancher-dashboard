@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/auth/roles/_resource/_id"],{a46b:function(e,c,s){"use strict";s.r(c);var n=function(){var e=this,c=e._self._c;return c("ResourceDetail")},o=[],u=s("c854"),r={name:"RolesResourcedId",components:{ResourceDetail:u["a"]}},t=r,a=s("0c7c"),l=Object(a["a"])(t,n,o,!1,null,null,null);c["default"]=l.exports}}]);
+//# sourceMappingURL=_id.c3d3f5e1.js.map

@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/_product/_resource/create"],{"4d06":function(e,t,c){"use strict";c.r(t);var r=function(){var e=this,t=e._self._c;return t("ResourceDetail",{attrs:{"component-testid":"cluster-manager-create"}})},s=[],n=c("c854"),a={name:"ClusterResourceCreate",components:{ResourceDetail:n["a"]}},u=a,o=c("0c7c"),l=Object(o["a"])(u,r,s,!1,null,null,null);t["default"]=l.exports}}]);
+//# sourceMappingURL=create.4e7617c1.js.map

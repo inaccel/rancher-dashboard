@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/index"],{"112d":function(n,e,s){"use strict";s.r(e);var c=function(){var n=this,e=n._self._c;return e("div",[n._v("\n  Clusters\n")])},t=[],u={},l=u,i=s("0c7c"),r=Object(i["a"])(l,c,t,!1,null,null,null);e["default"]=r.exports}}]);
+//# sourceMappingURL=index.94cd4efd.js.map

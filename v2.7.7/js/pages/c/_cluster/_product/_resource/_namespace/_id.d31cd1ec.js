@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/_product/_resource/_namespace/_id"],{"75b0":function(e,c,s){"use strict";s.r(c);var n=function(){var e=this,c=e._self._c;return c("ResourceDetail")},u=[],a=s("c854"),r={name:"ClusterResourceNamespaceId",components:{ResourceDetail:a["a"]}},t=r,o=s("0c7c"),l=Object(o["a"])(t,n,u,!1,null,null,null);c["default"]=l.exports}}]);
+//# sourceMappingURL=_id.d31cd1ec.js.map

@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/ecm/index"],{"0803":function(n,e,t){"use strict";t.r(e);var c=function(){var n=this,e=n._self._c;return e("div",[n._v("Redirecting...")])},i=[],o={layout:"plain",mounted:function(){var n=this.$store.getters["backToRancherLink"];window.location.href=n}},r=o,a=t("0c7c"),s=Object(a["a"])(r,c,i,!1,null,null,null);e["default"]=s.exports}}]);
+//# sourceMappingURL=index.c6d85e26.js.map

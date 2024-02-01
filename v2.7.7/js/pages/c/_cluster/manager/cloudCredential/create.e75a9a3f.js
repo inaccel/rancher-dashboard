@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/manager/cloudCredential/create"],{b3c53:function(e,r,c){"use strict";c.r(r);var t=function(){var e=this,r=e._self._c;return r("ResourceDetail",{attrs:{"resource-override":"cloudcredential","parent-route-override":"c-cluster-manager-cloudCredential"}})},a=[],n=c("c854"),l={name:"CloudCredentialCreate",components:{ResourceDetail:n["a"]}},o=l,u=c("0c7c"),s=Object(u["a"])(o,t,a,!1,null,null,null);r["default"]=s.exports}}]);
+//# sourceMappingURL=create.e75a9a3f.js.map
