@@ -106,9 +106,9 @@ async function createApp(ssrContext, config = {}) {
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
     head: {
-      title: 'dashboard',
+      title: 'InAccel',
       meta:  [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, {
-        hid: 'description', name: 'description', content: 'Rancher Dashboard'
+        hid: 'description', name: 'description', content: 'InAccel Dashboard for Rancher'
       }],
       style:  [],
       script: []
