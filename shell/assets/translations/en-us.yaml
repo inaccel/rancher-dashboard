@@ -1971,6 +1971,10 @@ clusterIndexPage:
     cores: CPU
     pods: Pods
     ram: Memory
+    intelOfsIa420fr0: Intel OFS IA-420F/R0
+    intelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM
+    intelOfsIa840fr0: Intel OFS IA-840F/R0
+    intelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM
     intelPacA10: Intel PAC A10
     intelPacS10: Intel PAC S10
     intelPacS10Usm: Intel PAC S10 USM
@@ -2031,6 +2035,10 @@ containerResourceLimit:
   helpTextDetail: The amount of resources the container can consume by default.
   label: Container Default Resource Limit
   limitsCpu: CPU Limit
+  limitsIntelOfsIa420fr0: Intel OFS IA-420F/R0 Limit/Reservation
+  limitsIntelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM Limit/Reservation
+  limitsIntelOfsIa840fr0: Intel OFS IA-840F/R0 Limit/Reservation
+  limitsIntelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM Limit/Reservation
   limitsIntelPacA10: Intel PAC A10 Limit/Reservation
   limitsIntelPacS10: Intel PAC S10 Limit/Reservation
   limitsIntelPacS10Usm: Intel PAC S10 USM Limit/Reservation
@@ -3634,6 +3642,10 @@ node:
         fpga: FPGA
         memory: MEMORY
         pods: PODS
+        intelOfsIa420fr0: Intel OFS IA-420F/R0
+        intelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM
+        intelOfsIa840fr0: Intel OFS IA-840F/R0
+        intelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM
         intelPacA10: Intel PAC A10
         intelPacS10: Intel PAC S10
         intelPacS10Usm: Intel PAC S10 USM

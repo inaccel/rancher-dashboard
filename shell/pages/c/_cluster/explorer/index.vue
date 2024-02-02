@@ -341,6 +341,134 @@ export default {
       return createMemoryValues(this.currentCluster?.status?.capacity?.memory, this.metricAggregations?.memory);
     },
 
+    intelOfsIa420fr0Usage() {
+      return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((usage, limit) => usage + limit, 0.0);
+    },
+
+    intelOfsIa420fr0Capacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia420fr0'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+
+    intelOfsIa420fr0Used() {
+      return {
+        total:  this.intelOfsIa420fr0Capacity,
+        useful: this.intelOfsIa420fr0Usage
+      };
+    },
+
+    intelOfsIa420fr0UsmUsage() {
+      return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0_usm'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0_usm'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((usage, limit) => usage + limit, 0.0);
+    },
+
+    intelOfsIa420fr0UsmCapacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia420fr0_usm'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+
+    intelOfsIa420fr0UsmUsed() {
+      return {
+        total:  this.intelOfsIa420fr0UsmCapacity,
+        useful: this.intelOfsIa420fr0UsmUsage
+      };
+    },
+
+    intelOfsIa840fr0Usage() {
+      return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((usage, limit) => usage + limit, 0.0);
+    },
+
+    intelOfsIa840fr0Capacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia840fr0'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+
+    intelOfsIa840fr0Used() {
+      return {
+        total:  this.intelOfsIa840fr0Capacity,
+        useful: this.intelOfsIa840fr0Usage
+      };
+    },
+
+    intelOfsIa840fr0UsmUsage() {
+      return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0_usm'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0_usm'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((usage, limit) => usage + limit, 0.0);
+    },
+
+    intelOfsIa840fr0UsmCapacity() {
+      return this.nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia840fr0_usm'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+
+    intelOfsIa840fr0UsmUsed() {
+      return {
+        total:  this.intelOfsIa840fr0UsmCapacity,
+        useful: this.intelOfsIa840fr0UsmUsage
+      };
+    },
+
     intelPacA10Usage() {
       return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
         let limit = 0;
@@ -438,7 +566,7 @@ export default {
     },
 
     fpgaCapacity() {
-      return this.intelPacA10Capacity + this.intelPacS10Capacity + this.intelPacS10UsmCapacity;
+      return this.intelOfsIa420fr0Capacity + this.intelOfsIa420fr0UsmCapacity + this.intelOfsIa840fr0Capacity + this.intelOfsIa840fr0UsmCapacity + this.intelPacA10Capacity + this.intelPacS10Capacity + this.intelPacS10UsmCapacity;
     },
 
     hasMonitoring() {
@@ -679,6 +807,27 @@ export default {
       v-if="!hasV1Monitoring && hasStats && fpgaCapacity"
       class="hardware-resource-gauges"
     >
+      <HardwareResourceGauge
+        v-if="intelOfsIa420fr0Capacity"
+        :name="t('clusterIndexPage.hardwareResourceGauge.intelOfsIa420fr0')"
+        :used="intelOfsIa420fr0Used"
+      />
+      <HardwareResourceGauge
+        v-if="intelOfsIa420fr0UsmCapacity"
+        :name="t('clusterIndexPage.hardwareResourceGauge.intelOfsIa420fr0Usm')"
+        :used="intelOfsIa420fr0UsmUsed"
+      />
+
+      <HardwareResourceGauge
+        v-if="intelOfsIa840fr0Capacity"
+        :name="t('clusterIndexPage.hardwareResourceGauge.intelOfsIa840fr0')"
+        :used="intelOfsIa840fr0Used"
+      />
+      <HardwareResourceGauge
+        v-if="intelOfsIa840fr0UsmCapacity"
+        :name="t('clusterIndexPage.hardwareResourceGauge.intelOfsIa840fr0Usm')"
+        :used="intelOfsIa840fr0UsmUsed"
+      />
       <HardwareResourceGauge
         v-if="intelPacA10Capacity"
         :name="t('clusterIndexPage.hardwareResourceGauge.intelPacA10')"

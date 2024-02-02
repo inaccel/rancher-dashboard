@@ -66,6 +66,10 @@ const TAB_WEIGHT_MAP = {
   volumeClaimTemplates: 89,
 };
 
+const INTEL_OFS_IA420FR0_KEY = 'intel/ofs_ia420fr0';
+const INTEL_OFS_IA420FR0_USM_KEY = 'intel/ofs_ia420fr0_usm';
+const INTEL_OFS_IA840FR0_KEY = 'intel/ofs_ia840fr0';
+const INTEL_OFS_IA840FR0_USM_KEY = 'intel/ofs_ia840fr0_usm';
 const INTEL_PAC_A10_KEY = 'intel/pac_a10';
 const INTEL_PAC_S10_KEY = 'intel/pac_s10';
 const INTEL_PAC_S10_USM_KEY = 'intel/pac_s10_usm';
@@ -427,6 +431,10 @@ export default {
         const {
           cpu: limitsCpu,
           memory: limitsMemory,
+          [INTEL_OFS_IA420FR0_KEY]: limitsIntelOfsIa420fr0,
+          [INTEL_OFS_IA420FR0_USM_KEY]: limitsIntelOfsIa420fr0Usm,
+          [INTEL_OFS_IA840FR0_KEY]: limitsIntelOfsIa840fr0,
+          [INTEL_OFS_IA840FR0_USM_KEY]: limitsIntelOfsIa840fr0Usm,
           [INTEL_PAC_A10_KEY]: limitsIntelPacA10,
           [INTEL_PAC_S10_KEY]: limitsIntelPacS10,
           [INTEL_PAC_S10_USM_KEY]: limitsIntelPacS10Usm,
@@ -438,6 +446,10 @@ export default {
           limitsMemory,
           requestsCpu,
           requestsMemory,
+          limitsIntelOfsIa420fr0,
+          limitsIntelOfsIa420fr0Usm,
+          limitsIntelOfsIa840fr0,
+          limitsIntelOfsIa840fr0Usm,
           limitsIntelPacA10,
           limitsIntelPacS10,
           limitsIntelPacS10Usm,
@@ -449,6 +461,10 @@ export default {
           limitsMemory,
           requestsCpu,
           requestsMemory,
+          limitsIntelOfsIa420fr0,
+          limitsIntelOfsIa420fr0Usm,
+          limitsIntelOfsIa840fr0,
+          limitsIntelOfsIa840fr0Usm,
           limitsIntelPacA10,
           limitsIntelPacS10,
           limitsIntelPacS10Usm,
@@ -460,11 +476,15 @@ export default {
             memory: requestsMemory,
           },
           limits: {
-            cpu:                     limitsCpu,
-            memory:                  limitsMemory,
-            [INTEL_PAC_A10_KEY]:     limitsIntelPacA10,
-            [INTEL_PAC_S10_KEY]:     limitsIntelPacS10,
-            [INTEL_PAC_S10_USM_KEY]: limitsIntelPacS10Usm,
+            cpu:                          limitsCpu,
+            memory:                       limitsMemory,
+            [INTEL_OFS_IA420FR0_KEY]:     limitsIntelOfsIa420fr0,
+            [INTEL_OFS_IA420FR0_USM_KEY]: limitsIntelOfsIa420fr0Usm,
+            [INTEL_OFS_IA840FR0_KEY]:     limitsIntelOfsIa840fr0,
+            [INTEL_OFS_IA840FR0_USM_KEY]: limitsIntelOfsIa840fr0Usm,
+            [INTEL_PAC_A10_KEY]:          limitsIntelPacA10,
+            [INTEL_PAC_S10_KEY]:          limitsIntelPacS10,
+            [INTEL_PAC_S10_USM_KEY]:      limitsIntelPacS10Usm,
           },
         };
 
@@ -749,6 +769,14 @@ export default {
 
       if (template.spec.containers && template.spec.containers[0]) {
         const containerResources = template.spec.containers[0].resources;
+        const intelOfsIa420fr0Limit =
+          template.spec.containers[0].resources?.limits?.[INTEL_OFS_IA420FR0_KEY];
+        const intelOfsIa420fr0UsmLimit =
+          template.spec.containers[0].resources?.limits?.[INTEL_OFS_IA420FR0_USM_KEY];
+        const intelOfsIa840fr0Limit =
+          template.spec.containers[0].resources?.limits?.[INTEL_OFS_IA840FR0_KEY];
+        const intelOfsIa840fr0UsmLimit =
+          template.spec.containers[0].resources?.limits?.[INTEL_OFS_IA840FR0_USM_KEY];
         const intelPacA10Limit =
           template.spec.containers[0].resources?.limits?.[INTEL_PAC_A10_KEY];
         const intelPacS10Limit =
@@ -757,6 +785,22 @@ export default {
           template.spec.containers[0].resources?.limits?.[INTEL_PAC_S10_USM_KEY];
 
         // Though not required, requests are also set to mirror the ember ui
+        if (intelOfsIa420fr0Limit > 0) {
+          containerResources.requests = containerResources.requests || {};
+          containerResources.requests[INTEL_OFS_IA420FR0_KEY] = intelOfsIa420fr0Limit;
+        }
+        if (intelOfsIa420fr0UsmLimit > 0) {
+          containerResources.requests = containerResources.requests || {};
+          containerResources.requests[INTEL_OFS_IA420FR0_USM_KEY] = intelOfsIa420fr0UsmLimit;
+        }
+        if (intelOfsIa840fr0Limit > 0) {
+          containerResources.requests = containerResources.requests || {};
+          containerResources.requests[INTEL_OFS_IA840FR0_KEY] = intelOfsIa840fr0Limit;
+        }
+        if (intelOfsIa840fr0UsmLimit > 0) {
+          containerResources.requests = containerResources.requests || {};
+          containerResources.requests[INTEL_OFS_IA840FR0_USM_KEY] = intelOfsIa840fr0UsmLimit;
+        }
         if (intelPacA10Limit > 0) {
           containerResources.requests = containerResources.requests || {};
           containerResources.requests[INTEL_PAC_A10_KEY] = intelPacA10Limit;
@@ -770,6 +814,70 @@ export default {
           containerResources.requests[INTEL_PAC_S10_USM_KEY] = intelPacS10UsmLimit;
         }
 
+        if (!this.fpgaLimitIsValid(intelOfsIa420fr0Limit)) {
+          try {
+            delete containerResources.requests[INTEL_OFS_IA420FR0_KEY];
+            delete containerResources.limits[INTEL_OFS_IA420FR0_KEY];
+
+            if (Object.keys(containerResources.limits).length === 0) {
+              delete containerResources.limits;
+            }
+            if (Object.keys(containerResources.requests).length === 0) {
+              delete containerResources.requests;
+            }
+            if (Object.keys(containerResources).length === 0) {
+              delete template.spec.containers[0].resources;
+            }
+          } catch {}
+        }
+        if (!this.fpgaLimitIsValid(intelOfsIa420fr0UsmLimit)) {
+          try {
+            delete containerResources.requests[INTEL_OFS_IA420FR0_USM_KEY];
+            delete containerResources.limits[INTEL_OFS_IA420FR0_USM_KEY];
+
+            if (Object.keys(containerResources.limits).length === 0) {
+              delete containerResources.limits;
+            }
+            if (Object.keys(containerResources.requests).length === 0) {
+              delete containerResources.requests;
+            }
+            if (Object.keys(containerResources).length === 0) {
+              delete template.spec.containers[0].resources;
+            }
+          } catch {}
+        }
+        if (!this.fpgaLimitIsValid(intelOfsIa840fr0Limit)) {
+          try {
+            delete containerResources.requests[INTEL_OFS_IA840FR0_KEY];
+            delete containerResources.limits[INTEL_OFS_IA840FR0_KEY];
+
+            if (Object.keys(containerResources.limits).length === 0) {
+              delete containerResources.limits;
+            }
+            if (Object.keys(containerResources.requests).length === 0) {
+              delete containerResources.requests;
+            }
+            if (Object.keys(containerResources).length === 0) {
+              delete template.spec.containers[0].resources;
+            }
+          } catch {}
+        }
+        if (!this.fpgaLimitIsValid(intelOfsIa840fr0UsmLimit)) {
+          try {
+            delete containerResources.requests[INTEL_OFS_IA840FR0_USM_KEY];
+            delete containerResources.limits[INTEL_OFS_IA840FR0_USM_KEY];
+
+            if (Object.keys(containerResources.limits).length === 0) {
+              delete containerResources.limits;
+            }
+            if (Object.keys(containerResources.requests).length === 0) {
+              delete containerResources.requests;
+            }
+            if (Object.keys(containerResources).length === 0) {
+              delete template.spec.containers[0].resources;
+            }
+          } catch {}
+        }
         if (!this.fpgaLimitIsValid(intelPacA10Limit)) {
           try {
             delete containerResources.requests[INTEL_PAC_A10_KEY];

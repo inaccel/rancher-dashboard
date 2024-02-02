@@ -1979,6 +1979,10 @@ clusterIndexPage:
     cores: CPU
     pods: Pod
     ram: 内存
+    intelOfsIa420fr0: Intel OFS IA-420F/R0
+    intelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM
+    intelOfsIa840fr0: Intel OFS IA-840F/R0
+    intelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM
     intelPacA10: Intel PAC A10
     intelPacS10: Intel PAC S10
     intelPacS10Usm: Intel PAC S10 USM
@@ -2039,6 +2043,10 @@ containerResourceLimit:
   helpTextDetail: 容器可以使用的的默认资源配额
   label: 容器默认资源限制
   limitsCpu: CPU 限制
+  limitsIntelOfsIa420fr0: Intel OFS IA-420F/R0 限制/预留
+  limitsIntelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM 限制/预留
+  limitsIntelOfsIa840fr0: Intel OFS IA-840F/R0 限制/预留
+  limitsIntelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM 限制/预留
   limitsIntelPacA10: Intel PAC A10 限制/预留
   limitsIntelPacS10: Intel PAC S10 限制/预留
   limitsIntelPacS10Usm: Intel PAC S10 USM 限制/预留
@@ -3640,6 +3648,10 @@ node:
         fpga: FPGA
         memory: 内存
         pods: Pod
+        intelOfsIa420fr0: Intel OFS IA-420F/R0
+        intelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM
+        intelOfsIa840fr0: Intel OFS IA-840F/R0
+        intelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM
         intelPacA10: Intel PAC A10
         intelPacS10: Intel PAC S10
         intelPacS10Usm: Intel PAC S10 USM

@@ -14,6 +14,98 @@ export default {
     };
   },
   methods: {
+    intelOfsIa420fr0Used(pods) {
+      return pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((nodeUsage, limit) => nodeUsage + limit, 0);
+    },
+    intelOfsIa420fr0Allocatable(nodes) {
+      return nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia420fr0'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+    intelOfsIa420fr0UsmUsed(pods) {
+      return pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0_usm'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0_usm'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((nodeUsage, limit) => nodeUsage + limit, 0);
+    },
+    intelOfsIa420fr0UsmAllocatable(nodes) {
+      return nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia420fr0_usm'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+    intelOfsIa840fr0Used(pods) {
+      return pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((nodeUsage, limit) => nodeUsage + limit, 0);
+    },
+    intelOfsIa840fr0Allocatable(nodes) {
+      return nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia840fr0'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
+    intelOfsIa840fr0UsmUsed(pods) {
+      return pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+        let limit = 0;
+
+        pod.spec.containers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0_usm'] || '0');
+
+          limit += quantity;
+        });
+        pod.spec.initContainers?.forEach((container) => {
+          const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0_usm'] || '0');
+
+          if (quantity > limit) {
+            limit = quantity;
+          }
+        });
+
+        return limit;
+      }).reduce((nodeUsage, limit) => nodeUsage + limit, 0);
+    },
+    intelOfsIa840fr0UsmAllocatable(nodes) {
+      return nodes.map(node => Number.parseInt(node.status.capacity['intel/ofs_ia840fr0_usm'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
+    },
     intelPacA10Used(pods) {
       return pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
         let limit = 0;
@@ -84,10 +176,10 @@ export default {
       return nodes.map(node => Number.parseInt(node.status.capacity['intel/pac_s10_usm'] || '0')).reduce((capacity, nodeCapacity) => capacity + nodeCapacity, 0);
     },
     fpgaUsed(pods) {
-      return this.intelPacA10Used(pods) + this.intelPacS10Used(pods) + this.intelPacS10UsmUsed(pods);
+      return this.intelOfsIa420fr0Used(pods) + this.intelOfsIa420fr0UsmUsed(pods) + this.intelOfsIa840fr0Used(pods) + this.intelOfsIa840fr0UsmUsed(pods) + this.intelPacA10Used(pods) + this.intelPacS10Used(pods) + this.intelPacS10UsmUsed(pods);
     },
     fpgaAllocatable(nodes) {
-      return this.intelPacA10Allocatable(nodes) + this.intelPacS10Allocatable(nodes) + this.intelPacS10UsmAllocatable(nodes);
+      return this.intelOfsIa420fr0Allocatable(nodes) + this.intelOfsIa420fr0UsmAllocatable(nodes) + this.intelOfsIa840fr0Allocatable(nodes) + this.intelOfsIa840fr0UsmAllocatable(nodes) + this.intelPacA10Allocatable(nodes) + this.intelPacS10Allocatable(nodes) + this.intelPacS10UsmAllocatable(nodes);
     },
 
     async startDelayedLoading() {
