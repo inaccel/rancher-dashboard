@@ -26,7 +26,7 @@ export default {
       }
     },
 
-    handleGpuLimit: {
+    handleFpgaLimit: {
       type:    Boolean,
       default: true
     },
@@ -44,25 +44,31 @@ export default {
 
   data() {
     const {
-      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsGpu
+      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelOfsIa420fr0, limitsIntelOfsIa420fr0Usm, limitsIntelOfsIa840fr0, limitsIntelOfsIa840fr0Usm, limitsIntelPacA10, limitsIntelPacS10, limitsIntelPacS10Usm
     } = this.value;
 
     return {
-      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsGpu, viewMode: _VIEW
+      limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelOfsIa420fr0, limitsIntelOfsIa420fr0Usm, limitsIntelOfsIa840fr0, limitsIntelOfsIa840fr0Usm, limitsIntelPacA10, limitsIntelPacS10, limitsIntelPacS10Usm, viewMode: _VIEW
     };
   },
 
   watch: {
     value() {
       const {
-        limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsGpu
+        limitsCpu, limitsMemory, requestsCpu, requestsMemory, limitsIntelOfsIa420fr0, limitsIntelOfsIa420fr0Usm, limitsIntelOfsIa840fr0, limitsIntelOfsIa840fr0Usm, limitsIntelPacA10, limitsIntelPacS10, limitsIntelPacS10Usm
       } = this.value;
 
       this.limitsCpu = limitsCpu;
       this.limitsMemory = limitsMemory;
       this.requestsCpu = requestsCpu;
       this.requestsMemory = requestsMemory;
-      this.limitsGpu = limitsGpu;
+      this.limitsIntelOfsIa420fr0 = limitsIntelOfsIa420fr0;
+      this.limitsIntelOfsIa420fr0Usm = limitsIntelOfsIa420fr0Usm;
+      this.limitsIntelOfsIa840fr0 = limitsIntelOfsIa840fr0;
+      this.limitsIntelOfsIa840fr0Usm = limitsIntelOfsIa840fr0Usm;
+      this.limitsIntelPacA10 = limitsIntelPacA10;
+      this.limitsIntelPacS10 = limitsIntelPacS10;
+      this.limitsIntelPacS10Usm = limitsIntelPacS10Usm;
     }
   },
 
@@ -94,14 +100,26 @@ export default {
         limitsMemory,
         requestsCpu,
         requestsMemory,
-        limitsGpu
+        limitsIntelOfsIa420fr0,
+        limitsIntelOfsIa420fr0Usm,
+        limitsIntelOfsIa840fr0,
+        limitsIntelOfsIa840fr0Usm,
+        limitsIntelPacA10,
+        limitsIntelPacS10,
+        limitsIntelPacS10Usm
       } = this;
 
       this.$emit('input', cleanUp({
         limitsCpu,
         limitsMemory,
         requestsCpu,
-        limitsGpu,
+        limitsIntelOfsIa420fr0,
+        limitsIntelOfsIa420fr0Usm,
+        limitsIntelOfsIa840fr0,
+        limitsIntelOfsIa840fr0Usm,
+        limitsIntelPacA10,
+        limitsIntelPacS10,
+        limitsIntelPacS10Usm,
         requestsMemory
       }));
     },
@@ -112,7 +130,13 @@ export default {
         limitsMemory,
         requestsCpu,
         requestsMemory,
-        limitsGpu
+        limitsIntelOfsIa420fr0,
+        limitsIntelOfsIa420fr0Usm,
+        limitsIntelOfsIa840fr0,
+        limitsIntelOfsIa840fr0Usm,
+        limitsIntelPacA10,
+        limitsIntelPacS10,
+        limitsIntelPacS10Usm
       } = this;
       const namespace = this.namespace; // no deep copy in destructure proxy yet
 
@@ -120,7 +144,13 @@ export default {
         limitsCpu,
         limitsMemory,
         requestsCpu,
-        limitsGpu,
+        limitsIntelOfsIa420fr0,
+        limitsIntelOfsIa420fr0Usm,
+        limitsIntelOfsIa840fr0,
+        limitsIntelOfsIa840fr0Usm,
+        limitsIntelPacA10,
+        limitsIntelPacS10,
+        limitsIntelPacS10Usm,
         requestsMemory
       });
 
@@ -140,14 +170,26 @@ export default {
           limitsMemory,
           requestsCpu,
           requestsMemory,
-          limitsGpu
+          limitsIntelOfsIa420fr0,
+          limitsIntelOfsIa420fr0Usm,
+          limitsIntelOfsIa840fr0,
+          limitsIntelOfsIa840fr0Usm,
+          limitsIntelPacA10,
+          limitsIntelPacS10,
+          limitsIntelPacS10Usm
         } = JSON.parse(defaults);
 
         this.limitsCpu = limitsCpu;
         this.limitsMemory = limitsMemory;
         this.requestsCpu = requestsCpu;
         this.requestsMemory = requestsMemory;
-        this.limitsGpu = limitsGpu;
+        this.limitsIntelOfsIa420fr0 = limitsIntelOfsIa420fr0;
+        this.limitsIntelOfsIa420fr0Usm = limitsIntelOfsIa420fr0Usm;
+        this.limitsIntelOfsIa840fr0 = limitsIntelOfsIa840fr0;
+        this.limitsIntelOfsIa840fr0Usm = limitsIntelOfsIa840fr0Usm;
+        this.limitsIntelPacA10 = limitsIntelPacA10;
+        this.limitsIntelPacS10 = limitsIntelPacS10;
+        this.limitsIntelPacS10Usm = limitsIntelPacS10Usm;
       }
     },
   }
@@ -233,17 +275,98 @@ export default {
       </span>
     </div>
     <div
-      v-if="handleGpuLimit"
-      class="row"
+      v-if="handleFpgaLimit"
+      class="row mb-20"
     >
       <span class="col span-6">
         <UnitInput
-          v-model="limitsGpu"
-          :placeholder="t('containerResourceLimit.gpuPlaceholder')"
-          :label="t('containerResourceLimit.limitsGpu')"
+          v-model="limitsIntelOfsIa420fr0"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelOfsIa420fr0')"
           :mode="mode"
-          :base-unit="t('suffix.gpus')"
-          data-testid="gpu-limit"
+          :base-unit="t('suffix.fpgas')"
+          data-testid="fpga-limit"
+          @input="updateLimits"
+        />
+      </span>
+      <span class="col span-6">
+        <UnitInput
+          v-model="limitsIntelOfsIa420fr0Usm"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelOfsIa420fr0Usm')"
+          :mode="mode"
+          :base-unit="t('suffix.fpgas')"
+          data-testid="fpga-limit"
+          @input="updateLimits"
+        />
+      </span>
+    </div>
+    <div
+      v-if="handleFpgaLimit"
+      class="row mb-20"
+    >
+      <span class="col span-6">
+        <UnitInput
+          v-model="limitsIntelOfsIa840fr0"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelOfsIa840fr0')"
+          :mode="mode"
+          :base-unit="t('suffix.fpgas')"
+          data-testid="fpga-limit"
+          @input="updateLimits"
+        />
+      </span>
+      <span class="col span-6">
+        <UnitInput
+          v-model="limitsIntelOfsIa840fr0Usm"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelOfsIa840fr0Usm')"
+          :mode="mode"
+          :base-unit="t('suffix.fpgas')"
+          data-testid="fpga-limit"
+          @input="updateLimits"
+        />
+      </span>
+    </div>
+    <div
+      v-if="handleFpgaLimit"
+      class="row mb-20"
+    >
+      <span class="col span-6">
+        <UnitInput
+          v-model="limitsIntelPacA10"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelPacA10')"
+          :mode="mode"
+          :base-unit="t('suffix.fpgas')"
+          data-testid="fpga-limit"
+          @input="updateLimits"
+        />
+      </span>
+    </div>
+    <div
+      v-if="handleFpgaLimit"
+      class="row mb-20"
+    >
+      <span class="col span-6">
+        <UnitInput
+          v-model="limitsIntelPacS10"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelPacS10')"
+          :mode="mode"
+          :base-unit="t('suffix.fpgas')"
+          data-testid="fpga-limit"
+          @input="updateLimits"
+        />
+      </span>
+      <span class="col span-6">
+        <UnitInput
+          v-model="limitsIntelPacS10Usm"
+          :placeholder="t('containerResourceLimit.fpgaPlaceholder')"
+          :label="t('containerResourceLimit.limitsIntelPacS10Usm')"
+          :mode="mode"
+          :base-unit="t('suffix.fpgas')"
+          data-testid="fpga-limit"
           @input="updateLimits"
         />
       </span>

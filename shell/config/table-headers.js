@@ -193,6 +193,16 @@ export const CPU = {
   width:     120,
 };
 
+export const FPGA = {
+  name:      'fpga',
+  labelKey:  'tableHeaders.fpga',
+  sort:      'fpgaUsage',
+  search:    false,
+  value:     'fpgaUsagePercentage',
+  formatter: 'PercentageBar',
+  width:     120,
+};
+
 export const RAM = {
   name:      'ram',
   labelKey:  'tableHeaders.ram',

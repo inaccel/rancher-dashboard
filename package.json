@@ -78,7 +78,6 @@
     "event-target-shim": "5.0.1",
     "express": "4.17.1",
     "file-saver": "2.0.2",
-    "identicon.js": "2.3.3",
     "intl-messageformat": "7.8.4",
     "is-base64": "^1.1.0",
     "is-url": "1.2.4",
