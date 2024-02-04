@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/manager/cloudCredential/_id"],{c25b:function(e,r,c){"use strict";c.r(r);var t=function(){var e=this,r=e._self._c;return r("ResourceDetail",{attrs:{"resource-override":"cloudcredential","parent-route-override":"c-cluster-manager-cloudCredential"}})},n=[],a=c("c854"),l={name:"CloudCredentialEdit",components:{ResourceDetail:a["a"]}},o=l,u=c("0c7c"),i=Object(u["a"])(o,t,n,!1,null,null,null);r["default"]=i.exports}}]);
+//# sourceMappingURL=_id.9f59af55.js.map
