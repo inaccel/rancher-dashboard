@@ -1268,6 +1268,10 @@ cluster:
     harvester:
       namespace: 命名空间
       cpu: CPU
+      bittwareIa420f: BittWare IA-420F
+      bittwareIa840f: BittWare IA-840F
+      intelPacA10: Intel PAC A10
+      intelPacS10: Intel PAC S10
       memory: 内存
       disk: 磁盘
       image: 镜像
@@ -1321,6 +1325,8 @@ cluster:
     machinePool:
       cpu:
         placeholder: 例如：2
+      fpga:
+        placeholder: 例如：1
       memory:
         placeholder: 例如：4
       disk:

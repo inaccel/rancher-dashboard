@@ -327,6 +327,11 @@ export default {
     let userDataIsBase64 = true;
     let networkDataIsBase64 = true;
 
+    let bittwareIa420fCount;
+    let bittwareIa840fCount;
+    let intelPacA10Count;
+    let intelPacS10Count;
+
     if (isCreate) {
       installAgent = true;
       userData = this.addCloudConfigComment(QGA_JSON);
@@ -339,6 +344,16 @@ export default {
         userData = this.value.userData;
       }
       installAgent = this.hasInstallAgent(userData, false);
+
+      const userDataDoc = userData ? YAML.parseDocument(userData) : YAML.parseDocument({});
+      const userDataYAML = userDataDoc.toString();
+      const userDataJSON = YAML.parse(userDataYAML);
+      let inaccel = userDataJSON?.inaccel || {};
+
+      bittwareIa420fCount = inaccel['bittware/ia420f'];
+      bittwareIa840fCount = inaccel['bittware/ia840f'];
+      intelPacA10Count = inaccel['intel/pac_a10'];
+      intelPacS10Count = inaccel['intel/pac_s10'];
     }
 
     if (this.value.networkData) {
@@ -378,7 +393,11 @@ export default {
       userDataIsBase64,
       networkDataIsBase64,
       vmAffinityIsBase64,
-      SOURCE_TYPE
+      SOURCE_TYPE,
+      bittwareIa420fCount,
+      bittwareIa840fCount,
+      intelPacA10Count,
+      intelPacS10Count
     };
   },
 
@@ -804,6 +823,8 @@ export default {
 
         this.$refs.userDataYamlEditor.updateValue(userDataYaml);
         this.userData = userDataYaml;
+
+        this.updateInAccel();
       } catch (e) {
         this.$store.dispatch('growl/error', {
           title:   this.t('generic.notification.title.error'),
@@ -1006,6 +1027,57 @@ export default {
       this.$refs.userDataYamlEditor.updateValue(userDataYaml);
       this.$set(this, 'userData', userDataYaml);
     },
+
+    updateInAccel() {
+      const userDataDoc = this.userData ? YAML.parseDocument(this.userData) : YAML.parseDocument({});
+      const userDataYAML = userDataDoc.toString();
+      const userDataJSON = YAML.parse(userDataYAML);
+      let inaccel = userDataJSON?.inaccel || {};
+
+      if (!isEmpty(this.bittwareIa420fCount)) {
+        inaccel['bittware/ia420f'] = this.bittwareIa420fCount;
+      } else {
+        delete inaccel['bittware/ia420f'];
+      }
+      if (!isEmpty(this.bittwareIa840fCount)) {
+        inaccel['bittware/ia840f'] = this.bittwareIa840fCount;
+      } else {
+        delete inaccel['bittware/ia840f'];
+      }
+      if (!isEmpty(this.intelPacA10Count)) {
+        inaccel['intel/pac_a10'] = this.intelPacA10Count;
+      } else {
+        delete inaccel['intel/pac_a10'];
+      }
+      if (!isEmpty(this.intelPacS10Count)) {
+        inaccel['intel/pac_s10'] = this.intelPacS10Count;
+      } else {
+        delete inaccel['intel/pac_s10'];
+      }
+
+      if (!isEmpty(inaccel)) {
+        userDataDoc.setIn(['inaccel'], inaccel);
+      } else {
+        userDataDoc.setIn(['inaccel'], {}); // It needs to be set empty first, as it is possible that cloud-init comments are mounted on this node
+        this.deleteYamlDocProp(userDataDoc, ['inaccel']);
+      }
+
+      let userDataYaml = userDataDoc.toString();
+
+      if (userDataYaml === '{}\n') {
+        // When the YAML parsed value is '{}\n', it means that the userData is empty.
+        userDataYaml = '';
+      }
+
+      const hasCloudComment = this.hasCloudConfigComment(userDataYaml);
+
+      if (!hasCloudComment) {
+        userDataYaml = `#cloud-config\n${ userDataYaml }`;
+      }
+
+      this.$refs.userDataYamlEditor?.updateValue(userDataYaml);
+      this.$set(this, 'userData', userDataYaml);
+    },
   }
 };
 </script>
@@ -1043,6 +1115,66 @@ export default {
             :disabled="disabled"
             required
             :placeholder="t('cluster.harvester.machinePool.memory.placeholder')"
+          />
+        </div>
+      </div>
+
+      <div class="row mt-20">
+        <div class="col span-6">
+          <UnitInput
+            v-model="bittwareIa420fCount"
+            v-int-number
+            label-key="cluster.credential.harvester.bittwareIa420f"
+            :suffix="t('suffix.fpgas')"
+            output-as="string"
+            :mode="mode"
+            :disabled="disabled"
+            :placeholder="t('cluster.harvester.machinePool.fpga.placeholder')"
+            @input="updateInAccel"
+          />
+        </div>
+
+        <div class="col span-6">
+          <UnitInput
+            v-model="bittwareIa840fCount"
+            v-int-number
+            label-key="cluster.credential.harvester.bittwareIa840f"
+            :suffix="t('suffix.fpgas')"
+            output-as="string"
+            :mode="mode"
+            :disabled="disabled"
+            :placeholder="t('cluster.harvester.machinePool.fpga.placeholder')"
+            @input="updateInAccel"
+          />
+        </div>
+      </div>
+
+      <div class="row mt-20">
+        <div class="col span-6">
+          <UnitInput
+            v-model="intelPacA10Count"
+            v-int-number
+            label-key="cluster.credential.harvester.intelPacA10"
+            :suffix="t('suffix.fpgas')"
+            output-as="string"
+            :mode="mode"
+            :disabled="disabled"
+            :placeholder="t('cluster.harvester.machinePool.fpga.placeholder')"
+            @input="updateInAccel"
+          />
+        </div>
+
+        <div class="col span-6">
+          <UnitInput
+            v-model="intelPacS10Count"
+            v-int-number
+            label-key="cluster.credential.harvester.intelPacS10"
+            :suffix="t('suffix.fpgas')"
+            output-as="string"
+            :mode="mode"
+            :disabled="disabled"
+            :placeholder="t('cluster.harvester.machinePool.fpga.placeholder')"
+            @input="updateInAccel"
           />
         </div>
       </div>
