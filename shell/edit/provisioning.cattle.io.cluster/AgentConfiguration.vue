@@ -206,7 +206,7 @@ export default {
         v-model="flatResources"
         :mode="mode"
         :show-tip="false"
-        :handle-gpu-limit="false"
+        :handle-fpga-limit="false"
         class="mt-10"
       />
     </GroupPanel>

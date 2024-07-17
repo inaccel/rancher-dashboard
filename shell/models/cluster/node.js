@@ -194,6 +194,221 @@ export default class ClusterNode extends SteveModel {
     return ((this.cpuUsage * 100) / this.cpuCapacity).toString();
   }
 
+  get intelOfsIa420fr0Usage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelOfsIa420fr0Capacity() {
+    return Number.parseInt(this.status.capacity['intel/ofs_ia420fr0'] || '0');
+  }
+
+  get intelOfsIa420fr0UsagePercentage() {
+    return ((this.intelOfsIa420fr0Usage * 100) / this.intelOfsIa420fr0Capacity).toString();
+  }
+
+  get intelOfsIa420fr0UsmUsage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0_usm'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia420fr0_usm'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelOfsIa420fr0UsmCapacity() {
+    return Number.parseInt(this.status.capacity['intel/ofs_ia420fr0_usm'] || '0');
+  }
+
+  get intelOfsIa420fr0UsmUsagePercentage() {
+    return ((this.intelOfsIa420fr0UsmUsage * 100) / this.intelOfsIa420fr0UsmCapacity).toString();
+  }
+
+  get intelOfsIa840fr0Usage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelOfsIa840fr0Capacity() {
+    return Number.parseInt(this.status.capacity['intel/ofs_ia840fr0'] || '0');
+  }
+
+  get intelOfsIa840fr0UsagePercentage() {
+    return ((this.intelOfsIa840fr0Usage * 100) / this.intelOfsIa840fr0Capacity).toString();
+  }
+
+  get intelOfsIa840fr0UsmUsage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0_usm'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/ofs_ia840fr0_usm'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelOfsIa840fr0UsmCapacity() {
+    return Number.parseInt(this.status.capacity['intel/ofs_ia840fr0_usm'] || '0');
+  }
+
+  get intelOfsIa840fr0UsmUsagePercentage() {
+    return ((this.intelOfsIa840fr0UsmUsage * 100) / this.intelOfsIa840fr0UsmCapacity).toString();
+  }
+
+  get intelPacA10Usage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_a10'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_a10'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelPacA10Capacity() {
+    return Number.parseInt(this.status.capacity['intel/pac_a10'] || '0');
+  }
+
+  get intelPacA10UsagePercentage() {
+    return ((this.intelPacA10Usage * 100) / this.intelPacA10Capacity).toString();
+  }
+
+  get intelPacS10Usage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelPacS10Capacity() {
+    return Number.parseInt(this.status.capacity['intel/pac_s10'] || '0');
+  }
+
+  get intelPacS10UsagePercentage() {
+    return ((this.intelPacS10Usage * 100) / this.intelPacS10Capacity).toString();
+  }
+
+  get intelPacS10UsmUsage() {
+    return this.pods.filter(pod => pod.status.phase !== 'Succeeded' && pod.status.phase !== 'Failed').map((pod) => {
+      let limit = 0;
+
+      pod.spec.containers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_usm'] || '0');
+
+        limit += quantity;
+      });
+      pod.spec.initContainers?.forEach((container) => {
+        const quantity = Number.parseInt(container.resources?.limits?.['intel/pac_s10_usm'] || '0');
+
+        if (quantity > limit) {
+          limit = quantity;
+        }
+      });
+
+      return limit;
+    }).reduce((nodeUsage, limit) => nodeUsage + limit, 0.0);
+  }
+
+  get intelPacS10UsmCapacity() {
+    return Number.parseInt(this.status.capacity['intel/pac_s10_usm'] || '0');
+  }
+
+  get intelPacS10UsmUsagePercentage() {
+    return ((this.intelPacS10UsmUsage * 100) / this.intelPacS10UsmCapacity).toString();
+  }
+
+  get fpgaUsage() {
+    return this.intelOfsIa420fr0Usage + this.intelOfsIa420fr0UsmUsage + this.intelOfsIa840fr0Usage + this.intelOfsIa840fr0UsmUsage + this.intelPacA10Usage + this.intelPacS10Usage + this.intelPacS10UsmUsage;
+  }
+
+  get fpgaCapacity() {
+    return this.intelOfsIa420fr0Capacity + this.intelOfsIa420fr0UsmCapacity + this.intelOfsIa840fr0Capacity + this.intelOfsIa840fr0UsmCapacity + this.intelPacA10Capacity + this.intelPacS10Capacity + this.intelPacS10UsmCapacity;
+  }
+
+  get fpgaUsagePercentage() {
+    return ((this.fpgaUsage * 100) / this.fpgaCapacity).toString();
+  }
+
   get ramUsage() {
     if ( this.isFromNorman && this.provider === 'eks' ) {
       return parseSi(this.podRequests.memory || '0');

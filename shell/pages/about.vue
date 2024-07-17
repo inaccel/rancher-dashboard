@@ -128,11 +128,11 @@ export default {
       <tr v-if="dashboardVersion">
         <td>
           <a
-            href="https://github.com/rancher/dashboard"
+            href="https://github.com/inaccel/rancher-dashboard"
             target="_blank"
             rel="nofollow noopener noreferrer"
           >
-            {{ t("generic.dashboard") }}
+            InAccel {{ t("generic.dashboard") }}
           </a>
         </td><td>{{ dashboardVersion }}</td>
       </tr>

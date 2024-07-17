@@ -1070,7 +1070,7 @@ export default {
   overflow: auto;
   padding: 5px;
   background-color: var(--logs-bg);
-  font-family: Menlo,Consolas,monospace;
+  font-family: $mono-font;
   color: var(--logs-text);
 
   .closed {

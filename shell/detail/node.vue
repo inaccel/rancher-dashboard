@@ -194,7 +194,7 @@ export default {
         :message="t('node.detail.glance.kubelet')"
       />
     </div>
-    <div class="mt-20 resources">
+    <div class="resources">
       <ConsumptionGauge
         :resource-name="t('node.detail.glance.consumptionGauge.cpu')"
         :capacity="value.cpuCapacity"
@@ -214,6 +214,51 @@ export default {
       />
     </div>
     <div class="spacer" />
+    <div v-if="value.fpgaCapacity" class="resources">
+      <ConsumptionGauge
+        v-if="value.intelOfsIa420fr0Capacity"
+        :resource-name="t('node.detail.glance.consumptionGauge.intelOfsIa420fr0')"
+        :capacity="value.intelOfsIa420fr0Capacity"
+        :used="value.intelOfsIa420fr0Usage"
+      />
+      <ConsumptionGauge
+        v-if="value.intelOfsIa420fr0UsmCapacity"
+        :resource-name="t('node.detail.glance.consumptionGauge.intelOfsIa420fr0Usm')"
+        :capacity="value.intelOfsIa420fr0UsmCapacity"
+        :used="value.intelOfsIa420fr0UsmUsage"
+      />
+      <ConsumptionGauge
+        v-if="value.intelOfsIa840fr0Capacity"
+        :resource-name="t('node.detail.glance.consumptionGauge.intelOfsIa840fr0')"
+        :capacity="value.intelOfsIa840fr0Capacity"
+        :used="value.intelOfsIa840fr0Usage"
+      />
+      <ConsumptionGauge
+        v-if="value.intelOfsIa840fr0UsmCapacity"
+        :resource-name="t('node.detail.glance.consumptionGauge.intelOfsIa840fr0Usm')"
+        :capacity="value.intelOfsIa840fr0UsmCapacity"
+        :used="value.intelOfsIa840fr0UsmUsage"
+      />
+      <ConsumptionGauge
+        v-if="value.intelPacA10Capacity"
+        :resource-name="t('node.detail.glance.consumptionGauge.intelPacA10')"
+        :capacity="value.intelPacA10Capacity"
+        :used="value.intelPacA10Usage"
+      />
+      <ConsumptionGauge
+        v-if="value.intelPacS10Capacity"
+        :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10')"
+        :capacity="value.intelPacS10Capacity"
+        :used="value.intelPacS10Usage"
+      />
+      <ConsumptionGauge
+        v-if="value.intelPacS10UsmCapacity"
+        :resource-name="t('node.detail.glance.consumptionGauge.intelPacS10Usm')"
+        :capacity="value.intelPacS10UsmCapacity"
+        :used="value.intelPacS10UsmUsage"
+      />
+    </div>
+    <div v-if="value.fpgaCapacity" class="spacer" />
     <ResourceTabs
       v-model="value"
       :mode="mode"
@@ -299,10 +344,12 @@ export default {
 .resources {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
 
   & > * {
     width: 30%;
+    margin-top: 20px !important;
   }
 }
 </style>
