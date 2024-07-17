@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/monitoring/alertmanagerconfig/_alertmanagerconfigid/index"],{df49:function(e,n,a){"use strict";a.r(n);var c=function(){var e=this,n=e._self._c;return n("ResourceDetail")},r=[],t=a("c854"),o={name:"AlertmanagerConfig",components:{ResourceDetail:t["a"]}},i=o,l=a("0c7c"),s=Object(l["a"])(i,c,r,!1,null,null,null);n["default"]=s.exports}}]);
+//# sourceMappingURL=index.d01dc756.js.map

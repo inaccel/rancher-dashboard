@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/_product/index"],{ed1b:function(t,u,n){"use strict";n.r(u);var r=function(){var t=this,u=t._self._c;return u("div",[t._v("\n  Default dashboard for "+t._s(t.product)+"\n")])},c=[],e={computed:{product:function(){return this.$route.params.product}}},o=e,s=n("0c7c"),d=Object(s["a"])(o,r,c,!1,null,null,null);u["default"]=d.exports}}]);
+//# sourceMappingURL=index.ba2dc599.js.map

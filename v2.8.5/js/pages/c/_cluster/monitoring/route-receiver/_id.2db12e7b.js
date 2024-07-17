@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages/c/_cluster/monitoring/route-receiver/_id"],{3008:function(e,r,t){"use strict";t.r(r);var c=function(){var e=this,r=e._self._c;return r("ResourceDetail",{attrs:{"resource-override":e.resource}})},o=[],u=t("c854"),n={name:"RouteReceiverDetail",components:{ResourceDetail:u["a"]},data:function(){var e=this.$route.query.resource;return{resource:e}}},s=n,i=t("0c7c"),a=Object(i["a"])(s,c,o,!1,null,null,null);r["default"]=a.exports}}]);
+//# sourceMappingURL=_id.2db12e7b.js.map
