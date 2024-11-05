@@ -244,7 +244,7 @@ suffix:
   milliCpus: milli CPUs
   cores: Cores
   cpus: CPUs
-  gpus: GPUs
+  fpgas: FPGAs
   ib: iB
   mib: MiB
   gb: GB
@@ -1051,8 +1051,9 @@ catalog:
       label: Git Repo URL
       placeholder: 'e.g. https://github.com/your-company/charts.git'
     name:
-      rancher-charts: '{vendor}'
-      rancher-partner-charts: Partners
+      inaccel-marketplace-charts: InAccel Marketplace
+      rancher-charts: Rancher
+      rancher-partner-charts: Rancher Partners
       rancher-rke2-charts: RKE2
       rancher-ui-plugins: Rancher Extensions
 
@@ -1369,6 +1370,10 @@ cluster:
     harvester:
       namespace: Namespace
       cpu: CPUs
+      bittwareIa420f: BittWare IA-420F
+      bittwareIa840f: BittWare IA-840F
+      intelPacA10: Intel PAC A10
+      intelPacS10: Intel PAC S10
       memory: Memory
       disk: Disk
       image: Image
@@ -1428,6 +1433,8 @@ cluster:
     machinePool:
       cpu:
         placeholder: e.g. 2
+      fpga:
+        placeholder: e.g. 1
       memory:
         placeholder: e.g. 4
       disk:
@@ -2144,6 +2151,13 @@ clusterIndexPage:
     cores: CPU
     pods: Pods
     ram: Memory
+    intelOfsIa420fr0: Intel OFS IA-420F/R0
+    intelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM
+    intelOfsIa840fr0: Intel OFS IA-840F/R0
+    intelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM
+    intelPacA10: Intel PAC A10
+    intelPacS10: Intel PAC S10
+    intelPacS10Usm: Intel PAC S10 USM
     used: Used
     reserved: Reserved
     units:
@@ -2157,6 +2171,8 @@ clusterIndexPage:
   sections:
     capacity:
       label: Capacity
+    fpgaUsage:
+      label: FPGA Usage
     events:
       label: Events
       resource:
@@ -2198,12 +2214,18 @@ configmap:
 
 containerResourceLimit:
   cpuPlaceholder: e.g. 1000
-  gpuPlaceholder: e.g. 1
+  fpgaPlaceholder: e.g. 1
   helpText: Configure how much of the resources the container can consume by default.
   helpTextDetail: The amount of resources the container can consume by default.
   label: Container Default Resource Limit
   limitsCpu: CPU Limit
-  limitsGpu: NVIDIA GPU Limit/Reservation
+  limitsIntelOfsIa420fr0: Intel OFS IA-420F/R0 Limit/Reservation
+  limitsIntelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM Limit/Reservation
+  limitsIntelOfsIa840fr0: Intel OFS IA-840F/R0 Limit/Reservation
+  limitsIntelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM Limit/Reservation
+  limitsIntelPacA10: Intel PAC A10 Limit/Reservation
+  limitsIntelPacS10: Intel PAC S10 Limit/Reservation
+  limitsIntelPacS10Usm: Intel PAC S10 USM Limit/Reservation
   limitsMemory: Memory Limit
   memPlaceholder: e.g. 128
   requestsCpu: CPU Reservation
@@ -3289,7 +3311,7 @@ neuvector:
         na: Resource Unavailable
 
 login:
-  howdy: Howdy!
+  howdy: Hello!
   welcome: Welcome to {vendor}
   loggedOut: You have been logged out.
   loggedOutFromSso: You've been logged out of Rancher, however you may still be logged in to your single sign-on identity provider.
@@ -3875,8 +3897,16 @@ node:
         used: Used
         amount: "{used} of {total} {unit}"
         cpu: CPU
+        fpga: FPGA
         memory: MEMORY
         pods: PODS
+        intelOfsIa420fr0: Intel OFS IA-420F/R0
+        intelOfsIa420fr0Usm: Intel OFS IA-420F/R0 USM
+        intelOfsIa840fr0: Intel OFS IA-840F/R0
+        intelOfsIa840fr0Usm: Intel OFS IA-840F/R0 USM
+        intelPacA10: Intel PAC A10
+        intelPacS10: Intel PAC S10
+        intelPacS10Usm: Intel PAC S10 USM
       diskPressure: Disk Pressure
       kubelet: kubelet
       memoryPressure: Memory Pressure
@@ -5634,6 +5664,7 @@ tableHeaders:
   customVerbs: Custom Verbs
   description: Description
   cpu: CPU
+  fpga: FPGA
   currentReplicas: Current Replicas
   date: Date
   data: Data

@@ -185,6 +185,14 @@ export default {
 
         },
         {
+          label:        this.t('tableHeaders.fpga'),
+          name:         'fpga',
+          value:        '',
+          sort:         ['status.allocatable.fpga', 'status.available.fpga'],
+          formatter:    'FpgaUsage',
+          delayLoading: true
+        },
+        {
           label: this.t('tableHeaders.memory'),
           value: '',
           name:  'memory',
