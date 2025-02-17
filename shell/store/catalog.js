@@ -22,6 +22,7 @@ const ALLOWED_CATEGORIES = [
   'PaaS',
   'Infrastructure',
   'Applications',
+  'Serverless',
 ];
 
 const CERTIFIED_SORTS = {

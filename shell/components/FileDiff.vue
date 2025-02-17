@@ -130,7 +130,7 @@ export default {
   }
 
   .d2h-diff-table {
-    font-family: Menlo,Consolas,monospace;
+    font-family: $mono-font;
     font-size: 13px;
   }
 

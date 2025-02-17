@@ -1,0 +1,37 @@
+name: InAccel
+on:
+  workflow_dispatch:
+    inputs:
+      cname:
+        required: true
+        default: dashboard.rancher.inaccel.com
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Get branch names
+      id: branch-names
+      uses: tj-actions/branch-names@v8
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Build
+      run: scripts/build-hosted
+      env:
+        BASE: https://${{ github.event.inputs.cname }}/${{ steps.branch-names.outputs.current_branch }}
+        DRONE_TAG: ${{ steps.branch-names.outputs.current_branch }}
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        cname: ${{ github.event.inputs.cname }}
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: dist/${{ steps.branch-names.outputs.current_branch }}
+        destination_dir: ${{ steps.branch-names.outputs.current_branch }}
+        full_commit_message: ${{ github.event.head_commit.id }}

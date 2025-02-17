@@ -19,7 +19,7 @@ import {
   STORAGE_CLASS_PROVISIONER, PERSISTENT_VOLUME_SOURCE,
   HPA_REFERENCE, MIN_REPLICA, MAX_REPLICA, CURRENT_REPLICA,
   ACCESS_KEY, DESCRIPTION, EXPIRES, EXPIRY_STATE, SUB_TYPE, AGE_NORMAN, SCOPE_NORMAN, PERSISTENT_VOLUME_CLAIM, RECLAIM_POLICY, PV_REASON, WORKLOAD_HEALTH_SCALE, POD_RESTARTS,
-  DURATION, MESSAGE, REASON, LAST_SEEN_TIME, EVENT_TYPE, OBJECT, ROLE, ROLES, VERSION, INTERNAL_EXTERNAL_IP, KUBE_NODE_OS, CPU, RAM, SECRET_DATA
+  DURATION, MESSAGE, REASON, LAST_SEEN_TIME, EVENT_TYPE, OBJECT, ROLE, ROLES, VERSION, INTERNAL_EXTERNAL_IP, KUBE_NODE_OS, CPU, FPGA, RAM, SECRET_DATA
 } from '@shell/config/table-headers';
 
 import { DSL } from '@shell/store/type-map';
@@ -298,6 +298,10 @@ export function init(store) {
         breakpoint: COLUMN_BREAKPOINTS.LAPTOP,
         getValue:   (row) => row.cpuUsagePercentage
       }, {
+        ...FPGA,
+        breakpoint: COLUMN_BREAKPOINTS.LAPTOP,
+        getValue:   (row) => row.fpgaUsagePercentage
+      }, {
         ...RAM,
         breakpoint: COLUMN_BREAKPOINTS.LAPTOP,
         getValue:   (row) => row.ramUsagePercentage
@@ -330,6 +334,12 @@ export function init(store) {
         ...CPU,
         breakpoint: COLUMN_BREAKPOINTS.LAPTOP,
         getValue:   (row) => row.cpuUsagePercentage,
+        sort:       false,
+        search:     false,
+      }, {
+        ...FPGA,
+        breakpoint: COLUMN_BREAKPOINTS.LAPTOP,
+        getValue:   (row) => row.fpgaUsagePercentage,
         sort:       false,
         search:     false,
       }, {
