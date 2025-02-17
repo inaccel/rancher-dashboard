@@ -1,0 +1,47 @@
+<!doctype html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAB41BMVEUAAAACXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwCXYwmSxs5AAAAoHRSTlMAAAEGDgUDLHixysmwdikCD3rk4XUNEZ38+5aD/XwHPenmMwpPvtqGF5z2wxIIme7LrJ6httj39b9LSfT+1DEZGxAcRZrqFLfwHit5us8yc9WmXBo4pPnlWaPMVZH6+G001uxTgZOrH0PvJkgYmM3tzlA/WELxxKXjHceSV1GPotuvYTAj4i24OgTF3l8lqGsJhWAWL0ROd8A8E6BHl9dWJdct8wAAAcJJREFUOMtjYBh0gJGJmYWFlZERlzQbOwcnFzcPLx8/NiWMjAKCQgvAQFhEFIsKRjFxiQVQICnFwohpvrTMAjiQkEWzhZFfTl5hARJQVGJEtl1ZRVxVbQEKUEf4hZFRQ1NrATrQ1mGCqWDU1YOI6RsYGhmbmJqBOeYWUpbKYFMYGa2sgQI2thx29g66jg5Ozi6uEA1aRvaMQGk3S3cgx0Pd08vbx9fPPyAwKDjEBOqhUAEGRnntMCArPCJYWnHBAplIbqAXo6LtY2LBCuLiGRISQYykZMYUG4QDFeR1UyHcKIY0cLDwpmdkZCIUqGZlO/mAWWYM+iDKIidXP08SoSC/QL+wCCwjwwByjWRxSSlSCEiAoqTMvhzErmAAxV9ipRFM0iapqrrGG+js2NpakJF6DHVAx9SnN0Ck4xqbmlmYGINAUrktrQsWBLQxVLYvWMDRYQ1RUKfcyc/ImF6wAGxH14JuK2BAeaa29qTLNoSZmcUpJvT29U9Qnghit08ScAn1A0UHI2vLZEb+KVMzMkqmGZbXTp8xcSaQneHAyDSLGS1xMjLPjvNpyJ+DO80yVs6dpz2fDZc8SAmrmygTHvkBAgDCf99RIpSrIAAAAABJRU5ErkJggg=="><title>InAccel Dashboard</title><script defer="defer" src="https://dashboard.rancher.inaccel.com/v2.10.2/js/chunk-vendors.be2f12f0.js"></script><script defer="defer" src="https://dashboard.rancher.inaccel.com/v2.10.2/js/index.f879ced7.js"></script></head><body><div id="app"><div class="initial-load-spinner-container"><i class="initial-load-spinner"></i></div></div><div id="modals"></div><script>(() => {
+            // Has the user chosen to auto detect the theme.... or if they haven't chosen anything.. --> check the auto-detected theme via R_PCS
+            // Otherwise check if they've specifically selected a theme --> R_THEME
+            const isDark = document.cookie.includes('R_THEME=auto') || !document.cookie.includes('R_THEME') ?
+                // User selected automatic theme, so use PCS (set when ui previously loaded and is either os theme or time of day based)
+                document.cookie.includes('R_PCS=dark') :
+                // Otherwise user selected light/dark theme directly
+                document.cookie.includes('R_THEME=dark');
+
+            const color = isDark ? '#1b1c21' : '#FFF';
+            const style = document.createElement('style');
+            style.innerHTML = ':root { --loading-bg-color: ' + color + ';}';
+            document.getElementsByTagName('head')[0].prepend(style);
+        })();</script><style>.initial-load-spinner-container {
+            align-items: center;
+            background-color: var(--loading-bg-color);
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100vw;
+        }
+
+        .initial-load-spinner {
+            animation: initial-load-animate 1s infinite linear;
+            background-color: var(--loading-bg-color);
+            box-sizing: border-box;
+            border: 5px solid #025E8D;
+            border-radius: 50%;
+            border-top-color: #3D98D3;
+            display: inline-block;
+            height: 80px;
+            margin: 0 auto;
+            width: 80px;
+        }
+
+        @keyframes initial-load-animate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(359deg);
+            }
+        }</style></body></html>
